@@ -1,8 +1,15 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene format=3 uid="uid://cqlyoc5p16a4d"]
 
 [ext_resource type="PackedScene" path="res://scenes/familiars/Cat.tscn" id="1_cat"]
 [ext_resource type="PackedScene" path="res://scenes/props/TelekinesisProp.tscn" id="2_prop"]
-[ext_resource type="Script" path="res://scripts/systems/CameraRig.gd" id="3_camrig"]
+[ext_resource type="Script" uid="uid://cycmacgniw256" path="res://scripts/systems/CameraRig.gd" id="3_camrig"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.45, 0.55, 0.65, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.6, 0.65, 0.7, 1)
+ambient_light_energy = 0.6
 
 [sub_resource type="BoxMesh" id="BoxMesh_ground"]
 size = Vector3(20, 0.2, 20)
@@ -20,70 +27,63 @@ size = Vector3(1, 2, 20)
 radius = 0.4
 height = 0.8
 
-[sub_resource type="Environment" id="Environment_1"]
-background_mode = 1
-background_color = Color(0.45, 0.55, 0.65, 1)
-ambient_light_source = 2
-ambient_light_color = Color(0.6, 0.65, 0.7, 1)
-ambient_light_energy = 0.6
+[node name="Main" type="Node3D" unique_id=797474474]
 
-[node name="Main" type="Node3D"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=554935391]
 environment = SubResource("Environment_1")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-position = Vector3(0, 8, 0)
-rotation_degrees = Vector3(-45, -45, 0)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=817351940]
+transform = Transform3D(0.70710677, 0.49999997, -0.49999997, 0, 0.70710677, 0.70710677, 0.70710677, -0.49999997, 0.49999997, 0, 8, 0)
 shadow_enabled = true
 
-[node name="Ground" type="StaticBody3D" parent="."]
-position = Vector3(0, -0.1, 0)
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1043257774]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=909772488]
 mesh = SubResource("BoxMesh_ground")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1521474585]
 shape = SubResource("BoxShape3D_ground")
 
-[node name="WallLeft" type="StaticBody3D" parent="."]
-position = Vector3(-2, 1, 0)
+[node name="WallLeft" type="StaticBody3D" parent="." unique_id=1130231214]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WallLeft"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallLeft" unique_id=2043503749]
 mesh = SubResource("BoxMesh_wall")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WallLeft"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallLeft" unique_id=144099784]
 shape = SubResource("BoxShape3D_wall")
 
-[node name="WallRight" type="StaticBody3D" parent="."]
-position = Vector3(2, 1, 0)
+[node name="WallRight" type="StaticBody3D" parent="." unique_id=382428678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WallRight"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallRight" unique_id=1834583222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6447923, 0.5149224, -0.67279494)
 mesh = SubResource("BoxMesh_wall")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WallRight"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallRight" unique_id=657299540]
 shape = SubResource("BoxShape3D_wall")
 
-[node name="TelekinesisProp" parent="." instance=ExtResource("2_prop")]
-position = Vector3(0, 0.5, 0)
+[node name="TelekinesisProp" parent="." unique_id=2048922467 instance=ExtResource("2_prop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5405297, 3.4148366, -1.5192175)
 
-[node name="GoalMarker" type="MeshInstance3D" parent="."]
-position = Vector3(0, 0.5, 6)
+[node name="GoalMarker" type="MeshInstance3D" parent="." unique_id=101411934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 6)
 mesh = SubResource("SphereMesh_goal")
 
-[node name="GoalLight" type="OmniLight3D" parent="."]
-position = Vector3(0, 1.5, 6)
+[node name="GoalLight" type="OmniLight3D" parent="." unique_id=1673490627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26714396, 1.5, 6)
 light_color = Color(1, 0.85, 0.4, 1)
 omni_range = 6.0
 
-[node name="Cat" parent="." instance=ExtResource("1_cat")]
-position = Vector3(0, 0, -6)
+[node name="Cat" parent="." unique_id=1264093076 instance=ExtResource("1_cat")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41269064, 2.9157019, -7.589594)
 
-[node name="CameraRig" type="Node3D" parent="."]
+[node name="CameraRig" type="Node3D" parent="." unique_id=523640990]
+transform = Transform3D(0.70710677, -0.35355338, 0.6123724, 0, 0.8660254, 0.5, -0.70710677, -0.35355338, 0.6123724, 0, 0, 0)
 script = ExtResource("3_camrig")
-rotation_degrees = Vector3(-30, 45, 0)
 target_path = NodePath("../Cat")
 
-[node name="Camera3D" type="Camera3D" parent="CameraRig"]
-position = Vector3(0, 0, 14)
+[node name="Camera3D" type="Camera3D" parent="CameraRig" unique_id=868844065]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
 current = true

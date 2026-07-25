@@ -2,7 +2,8 @@
 .godot/
 .import/
 export.cfg
-export_presets.cfg
+# export_presets.cfg is tracked deliberately: CI needs the "Web" preset it
+# defines, and this project has no signing keys/secrets in its presets.
 
 # Imported translations (automatically generated from CSV files)
 *.translation
