@@ -33,12 +33,12 @@ jobs:
           presets_to_export: Web
 
       - name: Add custom domain file
-        run: echo "games.cuzbro.net" > "${{ steps.export.outputs.build_directory }}/CNAME"
+        run: echo "games.cuzbro.net" > "${{ steps.export.outputs.build_directory }}/Web/CNAME"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ steps.export.outputs.build_directory }}
+          path: ${{ steps.export.outputs.build_directory }}/Web
 
   deploy:
     needs: build
