@@ -10,7 +10,9 @@ class_name SpellCaster
 signal spell_learned(spell_id: StringName)
 signal spell_cast(spell_id: StringName, target: Node)
 
-@export var known_spells: Array[StringName] = [&"telekinesis"]
+## Empty by default — spells are meant to be found as tome pages
+## (see TomePage.gd), not handed to the player at spawn.
+@export var known_spells: Array[StringName] = []
 @export var cast_range: float = 3.0
 
 var active_spell: StringName = &"telekinesis"

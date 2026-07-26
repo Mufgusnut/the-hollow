@@ -1,0 +1,121 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/props/LogWall.gd" id="1_logwall"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_FrontSeg"]
+size = Vector3(2.4, 2.4, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_SideWall"]
+size = Vector3(0.3, 2.4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_BackWall"]
+size = Vector3(6, 2.4, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Roof"]
+size = Vector3(7.2, 0.2, 5.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Chimney"]
+size = Vector3(0.5, 1.3, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Window"]
+size = Vector3(0.05, 0.6, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Roof"]
+albedo_color = Color(0.32, 0.22, 0.15, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_Chimney"]
+albedo_color = Color(0.4, 0.4, 0.42, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_Window"]
+albedo_color = Color(0.95, 0.75, 0.35, 1)
+emission_enabled = true
+emission = Color(0.9, 0.6, 0.2, 1)
+emission_energy_multiplier = 1.5
+
+[node name="Cottage" type="Node3D"]
+
+[node name="FrontWallLeft" type="StaticBody3D" parent="."]
+position = Vector3(-1.8, 1.2, -2.5)
+
+[node name="LogVisual" type="Node3D" parent="FrontWallLeft"]
+script = ExtResource("1_logwall")
+wall_width = 2.4
+wall_height = 2.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FrontWallLeft"]
+shape = SubResource("BoxShape3D_FrontSeg")
+
+[node name="FrontWallRight" type="StaticBody3D" parent="."]
+position = Vector3(1.8, 1.2, -2.5)
+
+[node name="LogVisual" type="Node3D" parent="FrontWallRight"]
+script = ExtResource("1_logwall")
+wall_width = 2.4
+wall_height = 2.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FrontWallRight"]
+shape = SubResource("BoxShape3D_FrontSeg")
+
+[node name="BackWall" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.2, 2.5)
+
+[node name="LogVisual" type="Node3D" parent="BackWall"]
+script = ExtResource("1_logwall")
+wall_width = 6.0
+wall_height = 2.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BackWall"]
+shape = SubResource("BoxShape3D_BackWall")
+
+[node name="LeftWall" type="StaticBody3D" parent="."]
+position = Vector3(-3, 1.2, 0)
+
+[node name="LogVisual" type="Node3D" parent="LeftWall"]
+script = ExtResource("1_logwall")
+rotation_degrees = Vector3(0, 90, 0)
+wall_width = 5.0
+wall_height = 2.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftWall"]
+shape = SubResource("BoxShape3D_SideWall")
+
+[node name="RightWall" type="StaticBody3D" parent="."]
+position = Vector3(3, 1.2, 0)
+
+[node name="LogVisual" type="Node3D" parent="RightWall"]
+script = ExtResource("1_logwall")
+rotation_degrees = Vector3(0, 90, 0)
+wall_width = 5.0
+wall_height = 2.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightWall"]
+shape = SubResource("BoxShape3D_SideWall")
+
+[node name="Roof" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.55, 0)
+rotation_degrees = Vector3(-10, 0, 0)
+mesh = SubResource("BoxMesh_Roof")
+surface_material_override/0 = SubResource("Mat_Roof")
+
+[node name="Chimney" type="MeshInstance3D" parent="."]
+position = Vector3(1.8, 3.25, 1.6)
+mesh = SubResource("BoxMesh_Chimney")
+surface_material_override/0 = SubResource("Mat_Chimney")
+
+[node name="WindowLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-3.02, 1.3, 0)
+mesh = SubResource("BoxMesh_Window")
+surface_material_override/0 = SubResource("Mat_Window")
+
+[node name="WindowRight" type="MeshInstance3D" parent="."]
+position = Vector3(3.02, 1.3, 0)
+mesh = SubResource("BoxMesh_Window")
+surface_material_override/0 = SubResource("Mat_Window")
+
+[node name="InteriorGlow" type="OmniLight3D" parent="."]
+position = Vector3(0, 1.3, 0)
+light_color = Color(1, 0.8, 0.5, 1)
+light_energy = 1.0
+omni_range = 3.5

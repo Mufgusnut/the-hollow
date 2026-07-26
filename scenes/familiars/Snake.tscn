@@ -1,0 +1,107 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://scripts/familiars/Snake.gd" id="1_snake"]
+[ext_resource type="Script" path="res://scripts/familiars/SpellCaster.gd" id="2_spell"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.13
+height = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1"]
+radius = 3.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_Scale"]
+albedo_color = Color(0.15, 0.35, 0.12, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="Mat_Eye"]
+albedo_color = Color(0.02, 0.02, 0.02, 1)
+roughness = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_Head"]
+radius = 0.16
+height = 0.32
+
+[sub_resource type="SphereMesh" id="SphereMesh_Seg2"]
+radius = 0.15
+height = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_Seg3"]
+radius = 0.13
+height = 0.26
+
+[sub_resource type="SphereMesh" id="SphereMesh_Seg4"]
+radius = 0.11
+height = 0.22
+
+[sub_resource type="SphereMesh" id="SphereMesh_Seg5"]
+radius = 0.09
+height = 0.18
+
+[sub_resource type="SphereMesh" id="SphereMesh_Seg6"]
+radius = 0.06
+height = 0.12
+
+[sub_resource type="SphereMesh" id="SphereMesh_Eye"]
+radius = 0.02
+height = 0.04
+
+[node name="Snake" type="CharacterBody3D"]
+script = ExtResource("1_snake")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.05, 0.12, 0.35)
+mesh = SubResource("SphereMesh_Head")
+surface_material_override/0 = SubResource("Mat_Scale")
+
+[node name="EyeL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.09, 0.17, 0.42)
+mesh = SubResource("SphereMesh_Eye")
+surface_material_override/0 = SubResource("Mat_Eye")
+
+[node name="EyeR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.09, 0.17, 0.42)
+mesh = SubResource("SphereMesh_Eye")
+surface_material_override/0 = SubResource("Mat_Eye")
+
+[node name="Seg2" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.03, 0.11, 0.2)
+mesh = SubResource("SphereMesh_Seg2")
+surface_material_override/0 = SubResource("Mat_Scale")
+
+[node name="Seg3" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.04, 0.1, 0.05)
+mesh = SubResource("SphereMesh_Seg3")
+surface_material_override/0 = SubResource("Mat_Scale")
+
+[node name="Seg4" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.03, 0.09, -0.1)
+mesh = SubResource("SphereMesh_Seg4")
+surface_material_override/0 = SubResource("Mat_Scale")
+
+[node name="Seg5" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.02, 0.08, -0.25)
+mesh = SubResource("SphereMesh_Seg5")
+surface_material_override/0 = SubResource("Mat_Scale")
+
+[node name="Seg6" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.06, -0.38)
+mesh = SubResource("SphereMesh_Seg6")
+surface_material_override/0 = SubResource("Mat_Scale")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.1, 0)
+rotation_degrees = Vector3(90, 0, 0)
+shape = SubResource("CapsuleShape3D_1")
+
+[node name="SpellCaster" type="Node" parent="."]
+script = ExtResource("2_spell")
+
+[node name="InteractArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="InteractShape" type="CollisionShape3D" parent="InteractArea"]
+shape = SubResource("SphereShape3D_1")

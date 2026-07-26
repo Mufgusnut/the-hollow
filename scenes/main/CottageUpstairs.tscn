@@ -1,0 +1,434 @@
+[gd_scene load_steps=54 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/familiars/Cat.tscn" id="1_cat"]
+[ext_resource type="Script" path="res://scripts/systems/CameraRig.gd" id="2_camrig"]
+[ext_resource type="Script" path="res://scripts/systems/LevelRoot.gd" id="3_levelroot"]
+[ext_resource type="Script" path="res://scripts/systems/SceneDoor.gd" id="4_scenedoor"]
+[ext_resource type="Script" path="res://scripts/props/LogWall.gd" id="5_logwall"]
+[ext_resource type="Script" path="res://scripts/props/MagicMirror.gd" id="6_magicmirror"]
+[ext_resource type="PackedScene" path="res://scenes/props/Witch.tscn" id="7_witch"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.1, 0.08, 0.14, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.45, 0.4, 0.5, 1)
+ambient_light_energy = 0.45
+
+[sub_resource type="BoxMesh" id="BoxMesh_Floor"]
+size = Vector3(8.4, 0.2, 7.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Floor"]
+size = Vector3(8.4, 0.2, 7.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_WallNS"]
+size = Vector3(8, 2.6, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_WallEW"]
+size = Vector3(0.3, 2.6, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_PartA"]
+size = Vector3(0.3, 2.6, 2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_PartB"]
+size = Vector3(0.3, 2.6, 3.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_StairsTrigger"]
+size = Vector3(0.8, 1.0, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_StairwellOpening"]
+size = Vector3(1.0, 0.04, 1.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Bed"]
+size = Vector3(1.8, 0.4, 1.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Pillow"]
+size = Vector3(0.5, 0.15, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Wardrobe"]
+size = Vector3(0.8, 1.8, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Nightstand"]
+size = Vector3(0.4, 0.5, 0.4)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Candle"]
+top_radius = 0.03
+bottom_radius = 0.04
+height = 0.15
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Rug"]
+top_radius = 1.1
+bottom_radius = 1.1
+height = 0.05
+
+[sub_resource type="BoxMesh" id="BoxMesh_Window"]
+size = Vector3(0.05, 0.6, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Desk"]
+size = Vector3(0.9, 0.5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Mirror"]
+size = Vector3(0.5, 0.6, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Lantern"]
+size = Vector3(0.15, 0.15, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ChairSeat"]
+size = Vector3(0.6, 0.4, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ChairBack"]
+size = Vector3(0.6, 0.6, 0.12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_SmallShelf"]
+size = Vector3(0.5, 1.8, 1.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Bathtub"]
+size = Vector3(1.2, 0.6, 1.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_SinkCounter"]
+size = Vector3(0.6, 0.5, 0.4)
+
+[sub_resource type="SphereMesh" id="SphereMesh_Basin"]
+radius = 0.2
+height = 0.15
+
+[sub_resource type="BoxMesh" id="BoxMesh_BathRug"]
+size = Vector3(1.0, 0.05, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_TowelRack"]
+size = Vector3(0.5, 0.08, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_MirrorFrame"]
+size = Vector3(1.3, 1.9, 0.12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_MirrorGlass"]
+size = Vector3(1.05, 1.65, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_MirrorArea"]
+size = Vector3(1.1, 1.7, 1.0)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Floor"]
+albedo_color = Color(0.34, 0.24, 0.28, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_Stairwell"]
+albedo_color = Color(0.08, 0.07, 0.08, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_Bed"]
+albedo_color = Color(0.28, 0.16, 0.4, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_Pillow"]
+albedo_color = Color(0.85, 0.8, 0.75, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_DarkWood"]
+albedo_color = Color(0.22, 0.15, 0.12, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_Wood"]
+albedo_color = Color(0.4, 0.28, 0.18, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_Candle"]
+albedo_color = Color(0.9, 0.85, 0.7, 1)
+emission_enabled = true
+emission = Color(1, 0.7, 0.3, 1)
+emission_energy_multiplier = 1.2
+
+[sub_resource type="StandardMaterial3D" id="Mat_Rug"]
+albedo_color = Color(0.45, 0.18, 0.35, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_Window"]
+albedo_color = Color(0.95, 0.75, 0.35, 1)
+emission_enabled = true
+emission = Color(0.9, 0.6, 0.2, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_Mirror"]
+albedo_color = Color(0.75, 0.8, 0.85, 1)
+metallic = 0.6
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="Mat_Lantern"]
+albedo_color = Color(0.1, 0.1, 0.1, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="Mat_Fabric"]
+albedo_color = Color(0.35, 0.3, 0.45, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_Porcelain"]
+albedo_color = Color(0.88, 0.88, 0.85, 1)
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="Mat_Towel"]
+albedo_color = Color(0.7, 0.75, 0.8, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_MirrorFrame"]
+albedo_color = Color(0.25, 0.18, 0.08, 1)
+metallic = 0.3
+roughness = 0.4
+
+[sub_resource type="StandardMaterial3D" id="Mat_MirrorGlass"]
+albedo_color = Color(0.5, 0.3, 0.7, 0.75)
+emission_enabled = true
+emission = Color(0.55, 0.3, 0.85, 1)
+emission_energy_multiplier = 1.6
+transparency = 1
+
+[node name="CottageUpstairs" type="Node3D"]
+script = ExtResource("3_levelroot")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+position = Vector3(0, -0.1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_Floor")
+surface_material_override/0 = SubResource("Mat_Floor")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_Floor")
+
+[node name="WallSouth" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.3, -3.5)
+
+[node name="LogVisual" type="Node3D" parent="WallSouth"]
+script = ExtResource("5_logwall")
+wall_width = 8.0
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallSouth"]
+shape = SubResource("BoxShape3D_WallNS")
+
+[node name="WallNorth" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.3, 3.5)
+
+[node name="LogVisual" type="Node3D" parent="WallNorth"]
+script = ExtResource("5_logwall")
+wall_width = 8.0
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallNorth"]
+shape = SubResource("BoxShape3D_WallNS")
+
+[node name="WallWest" type="StaticBody3D" parent="."]
+position = Vector3(-4, 1.3, 0)
+
+[node name="LogVisual" type="Node3D" parent="WallWest"]
+script = ExtResource("5_logwall")
+rotation_degrees = Vector3(0, 90, 0)
+wall_width = 7.0
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallWest"]
+shape = SubResource("BoxShape3D_WallEW")
+
+[node name="WallEast" type="StaticBody3D" parent="."]
+position = Vector3(4, 1.3, 0)
+
+[node name="LogVisual" type="Node3D" parent="WallEast"]
+script = ExtResource("5_logwall")
+rotation_degrees = Vector3(0, 90, 0)
+wall_width = 7.0
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallEast"]
+shape = SubResource("BoxShape3D_WallEW")
+
+[node name="PartitionA" type="StaticBody3D" parent="."]
+position = Vector3(1, 1.3, -2.25)
+
+[node name="LogVisual" type="Node3D" parent="PartitionA"]
+script = ExtResource("5_logwall")
+rotation_degrees = Vector3(0, 90, 0)
+wall_width = 2.5
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PartitionA"]
+shape = SubResource("BoxShape3D_PartA")
+
+[node name="PartitionB" type="StaticBody3D" parent="."]
+position = Vector3(1, 1.3, 1.75)
+
+[node name="LogVisual" type="Node3D" parent="PartitionB"]
+script = ExtResource("5_logwall")
+rotation_degrees = Vector3(0, 90, 0)
+wall_width = 3.5
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PartitionB"]
+shape = SubResource("BoxShape3D_PartB")
+
+[node name="Rug" type="MeshInstance3D" parent="."]
+position = Vector3(-2.0, 0.03, 0)
+mesh = SubResource("CylinderMesh_Rug")
+surface_material_override/0 = SubResource("Mat_Rug")
+
+[node name="Bed" type="MeshInstance3D" parent="."]
+position = Vector3(-2.7, 0.2, 2.3)
+mesh = SubResource("BoxMesh_Bed")
+surface_material_override/0 = SubResource("Mat_Bed")
+
+[node name="Pillow" type="MeshInstance3D" parent="."]
+position = Vector3(-2.7, 0.42, 2.65)
+mesh = SubResource("BoxMesh_Pillow")
+surface_material_override/0 = SubResource("Mat_Pillow")
+
+[node name="Wardrobe" type="MeshInstance3D" parent="."]
+position = Vector3(0.3, 0.9, 2.6)
+mesh = SubResource("BoxMesh_Wardrobe")
+surface_material_override/0 = SubResource("Mat_DarkWood")
+
+[node name="Nightstand" type="MeshInstance3D" parent="."]
+position = Vector3(-1.3, 0.35, 2.3)
+mesh = SubResource("BoxMesh_Nightstand")
+surface_material_override/0 = SubResource("Mat_Wood")
+
+[node name="Candle" type="MeshInstance3D" parent="."]
+position = Vector3(-1.3, 0.65, 2.3)
+mesh = SubResource("CylinderMesh_Candle")
+surface_material_override/0 = SubResource("Mat_Candle")
+
+[node name="CandleLight" type="OmniLight3D" parent="."]
+position = Vector3(-1.3, 0.72, 2.3)
+light_color = Color(1, 0.75, 0.4, 1)
+light_energy = 0.7
+omni_range = 1.8
+
+[node name="Window" type="MeshInstance3D" parent="."]
+position = Vector3(-4.02, 1.3, -0.5)
+mesh = SubResource("BoxMesh_Window")
+surface_material_override/0 = SubResource("Mat_Window")
+
+[node name="Desk" type="MeshInstance3D" parent="."]
+position = Vector3(0.3, 0.25, -2.0)
+mesh = SubResource("BoxMesh_Desk")
+surface_material_override/0 = SubResource("Mat_Wood")
+
+[node name="DeskMirror" type="MeshInstance3D" parent="."]
+position = Vector3(0.3, 1.0, -2.3)
+mesh = SubResource("BoxMesh_Mirror")
+surface_material_override/0 = SubResource("Mat_Mirror")
+
+[node name="Lantern" type="MeshInstance3D" parent="."]
+position = Vector3(-1.5, 2.2, 0)
+mesh = SubResource("BoxMesh_Lantern")
+surface_material_override/0 = SubResource("Mat_Lantern")
+
+[node name="LanternLight" type="OmniLight3D" parent="."]
+position = Vector3(-1.5, 2.2, 0)
+light_color = Color(1, 0.85, 0.6, 1)
+light_energy = 0.9
+omni_range = 5.0
+
+[node name="ReadingChairSeat" type="MeshInstance3D" parent="."]
+position = Vector3(-3.5, 0.3, -1.0)
+mesh = SubResource("BoxMesh_ChairSeat")
+surface_material_override/0 = SubResource("Mat_Fabric")
+
+[node name="ReadingChairBack" type="MeshInstance3D" parent="."]
+position = Vector3(-3.5, 0.6, -1.25)
+mesh = SubResource("BoxMesh_ChairBack")
+surface_material_override/0 = SubResource("Mat_Fabric")
+
+[node name="SmallBookshelf" type="MeshInstance3D" parent="."]
+position = Vector3(-3.7, 1.0, 1.5)
+mesh = SubResource("BoxMesh_SmallShelf")
+surface_material_override/0 = SubResource("Mat_Wood")
+
+[node name="StairwellOpening" type="MeshInstance3D" parent="."]
+position = Vector3(-3.2, 0.02, -2.8)
+mesh = SubResource("BoxMesh_StairwellOpening")
+surface_material_override/0 = SubResource("Mat_Stairwell")
+
+[node name="SpawnUpstairs" type="Marker3D" parent="."]
+position = Vector3(-2.0, 0, -1.8)
+
+[node name="StairsDownTrigger" type="Area3D" parent="."]
+position = Vector3(-3.2, 1.0, -2.8)
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("4_scenedoor")
+target_scene = "res://scenes/main/CottageInterior.tscn"
+spawn_marker_name = &"SpawnAtStairsBottom"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StairsDownTrigger"]
+shape = SubResource("BoxShape3D_StairsTrigger")
+
+[node name="Bathtub" type="MeshInstance3D" parent="."]
+position = Vector3(2.2, 0.3, -2.5)
+mesh = SubResource("BoxMesh_Bathtub")
+surface_material_override/0 = SubResource("Mat_Porcelain")
+
+[node name="BathRug" type="MeshInstance3D" parent="."]
+position = Vector3(2.2, 0.03, -1.3)
+mesh = SubResource("BoxMesh_BathRug")
+surface_material_override/0 = SubResource("Mat_Rug")
+
+[node name="SinkCounter" type="MeshInstance3D" parent="."]
+position = Vector3(3.3, 0.45, 2.5)
+mesh = SubResource("BoxMesh_SinkCounter")
+surface_material_override/0 = SubResource("Mat_Wood")
+
+[node name="SinkBasin" type="MeshInstance3D" parent="."]
+position = Vector3(3.3, 0.72, 2.5)
+mesh = SubResource("SphereMesh_Basin")
+surface_material_override/0 = SubResource("Mat_Porcelain")
+
+[node name="TowelRack" type="MeshInstance3D" parent="."]
+position = Vector3(3.85, 1.2, 1.0)
+mesh = SubResource("BoxMesh_TowelRack")
+surface_material_override/0 = SubResource("Mat_Towel")
+
+[node name="BathroomWindow" type="MeshInstance3D" parent="."]
+position = Vector3(4.02, 1.6, 1.0)
+mesh = SubResource("BoxMesh_Window")
+surface_material_override/0 = SubResource("Mat_Window")
+
+[node name="BathroomLight" type="OmniLight3D" parent="."]
+position = Vector3(2.5, 2.2, 0)
+light_color = Color(0.9, 0.92, 1, 1)
+light_energy = 0.8
+omni_range = 5.0
+
+[node name="Witch" parent="." instance=ExtResource("7_witch")]
+position = Vector3(2.2, 0, 2.4)
+
+[node name="MagicMirrorFrame" type="MeshInstance3D" parent="."]
+position = Vector3(2.2, 1.6, 3.35)
+mesh = SubResource("BoxMesh_MirrorFrame")
+surface_material_override/0 = SubResource("Mat_MirrorFrame")
+
+[node name="MagicMirrorGlass" type="MeshInstance3D" parent="."]
+position = Vector3(2.2, 1.6, 3.3)
+mesh = SubResource("BoxMesh_MirrorGlass")
+surface_material_override/0 = SubResource("Mat_MirrorGlass")
+
+[node name="MagicMirrorArea" type="Area3D" parent="."]
+position = Vector3(2.2, 1.6, 3.3)
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("6_magicmirror")
+mirror_name = "The Scrying Glass"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MagicMirrorArea"]
+shape = SubResource("BoxShape3D_MirrorArea")
+
+[node name="Cat" parent="." instance=ExtResource("1_cat")]
+position = Vector3(-2.0, 0, -1.8)
+
+[node name="CameraRig" type="Node3D" parent="."]
+rotation_degrees = Vector3(-30, 45, 0)
+script = ExtResource("2_camrig")
+target_path = NodePath("../Cat")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+position = Vector3(0, 0, 14)
+current = true

@@ -1,0 +1,123 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://scripts/familiars/Crow.gd" id="1_crow"]
+[ext_resource type="Script" path="res://scripts/familiars/SpellCaster.gd" id="2_spell"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.16
+height = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1"]
+radius = 3.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_Feather"]
+albedo_color = Color(0.07, 0.07, 0.09, 1)
+roughness = 0.4
+metallic = 0.15
+
+[sub_resource type="StandardMaterial3D" id="Mat_Beak"]
+albedo_color = Color(0.15, 0.13, 0.1, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="Mat_Eye"]
+albedo_color = Color(0.9, 0.9, 0.85, 1)
+roughness = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_Body"]
+radius = 0.15
+height = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_Head"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Beak"]
+top_radius = 0.0
+bottom_radius = 0.035
+height = 0.13
+
+[sub_resource type="BoxMesh" id="BoxMesh_Wing"]
+size = Vector3(0.04, 0.22, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Tail"]
+size = Vector3(0.22, 0.03, 0.25)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Leg"]
+top_radius = 0.015
+bottom_radius = 0.015
+height = 0.12
+
+[sub_resource type="SphereMesh" id="SphereMesh_Eye"]
+radius = 0.015
+height = 0.03
+
+[node name="Crow" type="CharacterBody3D"]
+script = ExtResource("1_crow")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.18, 0)
+scale = Vector3(1, 1, 1.3)
+mesh = SubResource("SphereMesh_Body")
+surface_material_override/0 = SubResource("Mat_Feather")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.24, 0.2)
+mesh = SubResource("SphereMesh_Head")
+surface_material_override/0 = SubResource("Mat_Feather")
+
+[node name="Beak" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.22, 0.32)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("CylinderMesh_Beak")
+surface_material_override/0 = SubResource("Mat_Beak")
+
+[node name="EyeL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.08, 0.27, 0.26)
+mesh = SubResource("SphereMesh_Eye")
+surface_material_override/0 = SubResource("Mat_Eye")
+
+[node name="EyeR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.08, 0.27, 0.26)
+mesh = SubResource("SphereMesh_Eye")
+surface_material_override/0 = SubResource("Mat_Eye")
+
+[node name="WingL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.16, 0.17, 0)
+mesh = SubResource("BoxMesh_Wing")
+surface_material_override/0 = SubResource("Mat_Feather")
+
+[node name="WingR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.16, 0.17, 0)
+mesh = SubResource("BoxMesh_Wing")
+surface_material_override/0 = SubResource("Mat_Feather")
+
+[node name="TailFeathers" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.13, -0.3)
+mesh = SubResource("BoxMesh_Tail")
+surface_material_override/0 = SubResource("Mat_Feather")
+
+[node name="LegL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.05, 0.07, 0)
+mesh = SubResource("CylinderMesh_Leg")
+surface_material_override/0 = SubResource("Mat_Beak")
+
+[node name="LegR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.05, 0.07, 0)
+mesh = SubResource("CylinderMesh_Leg")
+surface_material_override/0 = SubResource("Mat_Beak")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.15, 0)
+shape = SubResource("CapsuleShape3D_1")
+
+[node name="SpellCaster" type="Node" parent="."]
+script = ExtResource("2_spell")
+
+[node name="InteractArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="InteractShape" type="CollisionShape3D" parent="InteractArea"]
+shape = SubResource("SphereShape3D_1")

@@ -1,0 +1,113 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/CharacterSelect.gd" id="1_select"]
+
+[node name="CharacterSelect" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_select")
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.06, 0.1, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(0.95, 0.9, 0.8, 1)
+text = "Choose Your Familiar"
+
+[node name="SubtitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.75, 0.7, 0.65, 1)
+text = "Your master's charm has given you her tongue and her wit. Choose your shape."
+
+[node name="Cards" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+theme_override_constants/separation = 28
+alignment = 1
+
+[node name="CatCard" type="VBoxContainer" parent="CenterContainer/VBoxContainer/Cards"]
+custom_minimum_size = Vector2(170, 0)
+theme_override_constants/separation = 8
+
+[node name="CatName" type="Label" parent="CenterContainer/VBoxContainer/Cards/CatCard"]
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 22
+text = "Cat"
+
+[node name="CatDesc" type="Label" parent="CenterContainer/VBoxContainer/Cards/CatCard"]
+horizontal_alignment = 1
+autowrap_mode = 3
+text = "Agile and quiet — but once they know it's her cat, they hunt you hardest of all."
+
+[node name="CatButton" type="Button" parent="CenterContainer/VBoxContainer/Cards/CatCard"]
+custom_minimum_size = Vector2(0, 40)
+text = "Choose"
+
+[node name="SnakeCard" type="VBoxContainer" parent="CenterContainer/VBoxContainer/Cards"]
+custom_minimum_size = Vector2(170, 0)
+theme_override_constants/separation = 8
+
+[node name="SnakeName" type="Label" parent="CenterContainer/VBoxContainer/Cards/SnakeCard"]
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 22
+text = "Snake"
+
+[node name="SnakeDesc" type="Label" parent="CenterContainer/VBoxContainer/Cards/SnakeCard"]
+horizontal_alignment = 1
+autowrap_mode = 3
+text = "Slides through gaps nothing else can. Every human panics on sight."
+
+[node name="SnakeButton" type="Button" parent="CenterContainer/VBoxContainer/Cards/SnakeCard"]
+custom_minimum_size = Vector2(0, 40)
+text = "Choose"
+
+[node name="RatCard" type="VBoxContainer" parent="CenterContainer/VBoxContainer/Cards"]
+custom_minimum_size = Vector2(170, 0)
+theme_override_constants/separation = 8
+
+[node name="RatName" type="Label" parent="CenterContainer/VBoxContainer/Cards/RatCard"]
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 22
+text = "Rat"
+
+[node name="RatDesc" type="Label" parent="CenterContainer/VBoxContainer/Cards/RatCard"]
+horizontal_alignment = 1
+autowrap_mode = 3
+text = "Smallest of all, and mostly ignored — until someone gets close enough to swat."
+
+[node name="RatButton" type="Button" parent="CenterContainer/VBoxContainer/Cards/RatCard"]
+custom_minimum_size = Vector2(0, 40)
+text = "Choose"
+
+[node name="CrowCard" type="VBoxContainer" parent="CenterContainer/VBoxContainer/Cards"]
+custom_minimum_size = Vector2(170, 0)
+theme_override_constants/separation = 8
+
+[node name="CrowName" type="Label" parent="CenterContainer/VBoxContainer/Cards/CrowCard"]
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 22
+text = "Crow"
+
+[node name="CrowDesc" type="Label" parent="CenterContainer/VBoxContainer/Cards/CrowCard"]
+horizontal_alignment = 1
+autowrap_mode = 3
+text = "Takes to the air over obstacles. An omen of death to the superstitious."
+
+[node name="CrowButton" type="Button" parent="CenterContainer/VBoxContainer/Cards/CrowCard"]
+custom_minimum_size = Vector2(0, 40)
+text = "Choose"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Cards/CatCard/CatButton" to="." method="_on_cat_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Cards/SnakeCard/SnakeButton" to="." method="_on_snake_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Cards/RatCard/RatButton" to="." method="_on_rat_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Cards/CrowCard/CrowButton" to="." method="_on_crow_pressed"]

@@ -11,6 +11,8 @@ const KEY_BINDINGS := {
 	&"move_right": KEY_D,
 	&"interact": KEY_E,
 	&"camera_reset": KEY_C,
+	&"cast_spell": KEY_F,
+	&"jump": KEY_SPACE,
 	&"spell_slot_1": KEY_1,
 	&"spell_slot_2": KEY_2,
 	&"spell_slot_3": KEY_3,
@@ -29,10 +31,9 @@ func _ready() -> void:
 	_ensure_action(&"click_move")
 	_add_mouse_button(&"click_move", MOUSE_BUTTON_LEFT)
 
-	_ensure_action(&"cast_spell")
-	_add_mouse_button(&"cast_spell", MOUSE_BUTTON_RIGHT)
 	_add_joy_button(&"cast_spell", JOY_BUTTON_X)
 	_add_joy_button(&"interact", JOY_BUTTON_A)
+	_add_joy_button(&"jump", JOY_BUTTON_B)
 	_add_joy_button(&"camera_reset", JOY_BUTTON_BACK)
 	_add_joy_button(&"spell_slot_1", JOY_BUTTON_DPAD_UP)
 

@@ -1,0 +1,230 @@
+[gd_scene load_steps=21 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/familiars/Cat.tscn" id="1_cat"]
+[ext_resource type="Script" path="res://scripts/systems/CameraRig.gd" id="2_camrig"]
+[ext_resource type="Script" path="res://scripts/systems/LevelRoot.gd" id="3_levelroot"]
+[ext_resource type="Script" path="res://scripts/systems/SceneDoor.gd" id="4_scenedoor"]
+[ext_resource type="PackedScene" path="res://scenes/props/Building.tscn" id="5_building"]
+[ext_resource type="PackedScene" path="res://scenes/props/Well.tscn" id="6_well"]
+[ext_resource type="PackedScene" path="res://scenes/props/Tree.tscn" id="7_tree"]
+[ext_resource type="Script" path="res://scripts/props/StoneWallRing.gd" id="8_wallring"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.55, 0.65, 0.75, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.7, 0.72, 0.7, 1)
+ambient_light_energy = 0.75
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground"]
+size = Vector3(42, 0.2, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Ground"]
+size = Vector3(42, 0.2, 30)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground"]
+albedo_color = Color(0.35, 0.5, 0.26, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_Street"]
+size = Vector3(32, 0.05, 4)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Stone"]
+albedo_color = Color(0.58, 0.56, 0.52, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_DirtEntry"]
+size = Vector3(4, 0.05, 2)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Dirt"]
+albedo_color = Color(0.45, 0.35, 0.25, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_Spur"]
+size = Vector3(1.2, 0.05, 3.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Anvil"]
+size = Vector3(0.5, 0.3, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Anvil"]
+albedo_color = Color(0.15, 0.15, 0.16, 1)
+metallic = 0.5
+roughness = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_door"]
+size = Vector3(1.0, 2.2, 0.6)
+
+[node name="Village" type="Node3D"]
+script = ExtResource("3_levelroot")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+position = Vector3(0, 10, 0)
+rotation_degrees = Vector3(-45, -35, 0)
+light_color = Color(1, 0.96, 0.88, 1)
+shadow_enabled = true
+
+[node name="TownWall" type="Node3D" parent="."]
+script = ExtResource("8_wallring")
+half_width = 20.0
+half_depth = 14.0
+wall_height = 3.0
+gap_side = 2
+gap_center = 0.0
+gap_width = 4.0
+
+[node name="Ground" type="StaticBody3D" parent="."]
+position = Vector3(0, -0.1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_Ground")
+surface_material_override/0 = SubResource("Mat_Ground")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_Ground")
+
+[node name="MainStreet" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, 0)
+mesh = SubResource("BoxMesh_Street")
+surface_material_override/0 = SubResource("Mat_Stone")
+
+[node name="DirtEntryPath" type="MeshInstance3D" parent="."]
+position = Vector3(17.5, 0.03, 0)
+mesh = SubResource("BoxMesh_DirtEntry")
+surface_material_override/0 = SubResource("Mat_Dirt")
+
+[node name="BlacksmithWalk" type="MeshInstance3D" parent="."]
+position = Vector3(-10, 0.03, -3.75)
+mesh = SubResource("BoxMesh_Spur")
+surface_material_override/0 = SubResource("Mat_Stone")
+
+[node name="HerbalistWalk" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, -3.75)
+mesh = SubResource("BoxMesh_Spur")
+surface_material_override/0 = SubResource("Mat_Stone")
+
+[node name="StoneHousePath" type="MeshInstance3D" parent="."]
+position = Vector3(10, 0.03, -3.75)
+mesh = SubResource("BoxMesh_Spur")
+surface_material_override/0 = SubResource("Mat_Dirt")
+
+[node name="TailorWalk" type="MeshInstance3D" parent="."]
+position = Vector3(-10, 0.03, 3.75)
+mesh = SubResource("BoxMesh_Spur")
+surface_material_override/0 = SubResource("Mat_Stone")
+
+[node name="WoodHousePath" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, 3.75)
+mesh = SubResource("BoxMesh_Spur")
+surface_material_override/0 = SubResource("Mat_Dirt")
+
+[node name="MixedHousePath" type="MeshInstance3D" parent="."]
+position = Vector3(10, 0.03, 3.75)
+mesh = SubResource("BoxMesh_Spur")
+surface_material_override/0 = SubResource("Mat_Dirt")
+
+[node name="Well" parent="." instance=ExtResource("6_well")]
+position = Vector3(0, 0, -2.5)
+
+[node name="Blacksmith" parent="." instance=ExtResource("5_building")]
+position = Vector3(-10, 0, -8)
+rotation_degrees = Vector3(0, 180, 0)
+width = 7.0
+depth = 6.0
+wall_style = 0
+roof_color = Color(0.22, 0.2, 0.19, 1)
+
+[node name="Anvil" type="MeshInstance3D" parent="."]
+position = Vector3(-10, 0.45, -4.2)
+mesh = SubResource("BoxMesh_Anvil")
+surface_material_override/0 = SubResource("Mat_Anvil")
+
+[node name="ForgeGlow" type="OmniLight3D" parent="."]
+position = Vector3(-10, 0.5, -4.2)
+light_color = Color(1, 0.45, 0.15, 1)
+light_energy = 0.8
+omni_range = 2.5
+
+[node name="Herbalist" parent="." instance=ExtResource("5_building")]
+position = Vector3(0, 0, -8)
+rotation_degrees = Vector3(0, 180, 0)
+width = 5.0
+depth = 5.0
+wall_style = 1
+roof_color = Color(0.3, 0.2, 0.12, 1)
+
+[node name="StoneHouse" parent="." instance=ExtResource("5_building")]
+position = Vector3(10, 0, -8)
+rotation_degrees = Vector3(0, 180, 0)
+width = 6.0
+depth = 5.0
+wall_style = 0
+roof_color = Color(0.32, 0.22, 0.15, 1)
+
+[node name="Tailor" parent="." instance=ExtResource("5_building")]
+position = Vector3(-10, 0, 8)
+width = 5.0
+depth = 5.0
+wall_style = 2
+roof_color = Color(0.4, 0.18, 0.16, 1)
+
+[node name="WoodHouse" parent="." instance=ExtResource("5_building")]
+position = Vector3(0, 0, 8)
+width = 6.0
+depth = 5.0
+wall_style = 1
+roof_color = Color(0.3, 0.2, 0.12, 1)
+
+[node name="MixedHouse" parent="." instance=ExtResource("5_building")]
+position = Vector3(10, 0, 8)
+width = 6.0
+depth = 5.0
+wall_style = 2
+roof_color = Color(0.35, 0.2, 0.15, 1)
+
+[node name="Tree1" parent="." instance=ExtResource("7_tree")]
+position = Vector3(-18, 0, -13)
+
+[node name="Tree2" parent="." instance=ExtResource("7_tree")]
+position = Vector3(18, 0, -13)
+
+[node name="Tree3" parent="." instance=ExtResource("7_tree")]
+position = Vector3(-18, 0, 13)
+
+[node name="Tree4" parent="." instance=ExtResource("7_tree")]
+position = Vector3(18, 0, 13)
+
+[node name="Tree5" parent="." instance=ExtResource("7_tree")]
+position = Vector3(16, 0, -4)
+
+[node name="Tree6" parent="." instance=ExtResource("7_tree")]
+position = Vector3(16, 0, 4)
+
+[node name="SpawnAtForestPath" type="Marker3D" parent="."]
+position = Vector3(17, 0, 0)
+rotation_degrees = Vector3(0, -90, 0)
+
+[node name="ForestPathExit" type="Area3D" parent="."]
+position = Vector3(19.5, 1, 0)
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("4_scenedoor")
+target_scene = "res://scenes/main/CottageHome.tscn"
+spawn_marker_name = &"SpawnFromVillage"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ForestPathExit"]
+shape = SubResource("BoxShape3D_door")
+
+[node name="Cat" parent="." instance=ExtResource("1_cat")]
+position = Vector3(17, 0, 0)
+
+[node name="CameraRig" type="Node3D" parent="."]
+rotation_degrees = Vector3(-30, 45, 0)
+script = ExtResource("2_camrig")
+target_path = NodePath("../Cat")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+position = Vector3(0, 0, 14)
+current = true

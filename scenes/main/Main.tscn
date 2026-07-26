@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" path="res://scenes/familiars/Cat.tscn" id="1_cat"]
 [ext_resource type="PackedScene" path="res://scenes/props/TelekinesisProp.tscn" id="2_prop"]
 [ext_resource type="Script" uid="uid://cycmacgniw256" path="res://scripts/systems/CameraRig.gd" id="3_camrig"]
+[ext_resource type="PackedScene" path="res://scenes/npc/Villager.tscn" id="4_villager"]
+[ext_resource type="PackedScene" path="res://scenes/props/TomePage.tscn" id="5_tomepage"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -65,10 +67,10 @@ mesh = SubResource("BoxMesh_wall")
 shape = SubResource("BoxShape3D_wall")
 
 [node name="TelekinesisProp" parent="." unique_id=2048922467 instance=ExtResource("2_prop")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5405297, 3.4148366, -1.5192175)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0316052, 2.7373223, -3.5952282)
 
 [node name="GoalMarker" type="MeshInstance3D" parent="." unique_id=101411934]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5139287, 2.3629785, 4.0132174)
 mesh = SubResource("SphereMesh_goal")
 
 [node name="GoalLight" type="OmniLight3D" parent="." unique_id=1673490627]
@@ -76,8 +78,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26714396, 1.5, 6)
 light_color = Color(1, 0.85, 0.4, 1)
 omni_range = 6.0
 
+[node name="Villager" parent="." unique_id=546748718 instance=ExtResource("4_villager")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 7)
+
+[node name="TomePageTelekinesis" parent="." instance=ExtResource("5_tomepage")]
+position = Vector3(-8.2, 0.5, -4.5)
+spell_id = &"telekinesis"
+
 [node name="Cat" parent="." unique_id=1264093076 instance=ExtResource("1_cat")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41269064, 2.9157019, -7.589594)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.200506, 0.20225477, -1.6459484)
 
 [node name="CameraRig" type="Node3D" parent="." unique_id=523640990]
 transform = Transform3D(0.70710677, -0.35355338, 0.6123724, 0, 0.8660254, 0.5, -0.70710677, -0.35355338, 0.6123724, 0, 0, 0)
@@ -85,5 +94,5 @@ script = ExtResource("3_camrig")
 target_path = NodePath("../Cat")
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig" unique_id=868844065]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 2.9802322e-08, 0, -2.9802322e-08, 1.0000001, -0.6569457, -0.681525, 13.828377)
 current = true

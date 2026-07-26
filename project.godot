@@ -15,9 +15,11 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="The Hollow"
-run/main_scene="res://scenes/main/Main.tscn"
+run/main_scene="res://scenes/ui/CharacterSelect.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]
 
 InputSetup="*res://scripts/systems/InputSetup.gd"
+Suspicion="*res://scripts/systems/Suspicion.gd"
+GameState="*res://scripts/systems/GameState.gd"

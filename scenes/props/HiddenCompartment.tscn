@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/props/HiddenCompartment.gd" id="1_compartment"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1"]
+radius = 1.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_ChestBase"]
+size = Vector3(0.6, 0.35, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ChestLid"]
+size = Vector3(0.6, 0.08, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Chest"]
+albedo_color = Color(0.3, 0.2, 0.13, 1)
+roughness = 0.85
+
+[node name="HiddenCompartment" type="Area3D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_compartment")
+
+[node name="DetectShape" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_1")
+
+[node name="ChestBase" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.175, 0)
+mesh = SubResource("BoxMesh_ChestBase")
+surface_material_override/0 = SubResource("Mat_Chest")
+
+[node name="Lid" type="Node3D" parent="."]
+position = Vector3(0, 0.35, -0.2)
+
+[node name="LidMesh" type="MeshInstance3D" parent="Lid"]
+position = Vector3(0, 0.04, 0.2)
+mesh = SubResource("BoxMesh_ChestLid")
+surface_material_override/0 = SubResource("Mat_Chest")

@@ -1,23 +1,28 @@
 extends Node3D
 class_name CameraRig
-## Fixed-angle isometric follow rig: tracks a target's XZ position with
-## smoothing but never rotates itself, keeping the isometric read
-## consistent (per GDD.md "Camera, Controls & Input"). The rig's own
-## rotation_degrees (set in the scene) is the view angle; the Camera3D
-## child sits behind it along local +Z with zero local rotation, so it
-## always looks back at the rig's origin no matter what angle is chosen.
+## Isometric follow rig: tracks a target's XZ position with smoothing and
+## keeps a fixed pitch, but yaw can be orbited by holding right-click and
+## dragging (per user request) — "camera_reset" (C) snaps both position
+## and yaw back to default. The rig's rotation_degrees (set in the scene)
+## is the base view angle; the Camera3D child sits behind it along local
+## +Z with zero local rotation, so it always looks back at the rig's
+## origin no matter what yaw it's currently at.
 
 @export var target_path: NodePath
 @export var follow_speed: float = 6.0
 @export var ortho_size: float = 10.0
+@export var orbit_sensitivity: float = 0.005
 
 @onready var _camera: Camera3D = $Camera3D
 var _target: Node3D
+var _default_yaw: float
+var _orbiting: bool = false
 
 func _ready() -> void:
 	add_to_group("camera_rig")
 	_camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	_camera.size = ortho_size
+	_default_yaw = rotation.y
 	if target_path != NodePath(""):
 		_target = get_node(target_path)
 	snap_to_target()
@@ -32,6 +37,15 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("camera_reset"):
 		snap_to_target()
+		rotation.y = _default_yaw
+		return
+
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		_orbiting = event.pressed
+		return
+
+	if event is InputEventMouseMotion and _orbiting:
+		rotation.y -= event.relative.x * orbit_sensitivity
 
 func snap_to_target() -> void:
 	if _target:

@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://scripts/familiars/Rat.gd" id="1_rat"]
+[ext_resource type="Script" path="res://scripts/familiars/SpellCaster.gd" id="2_spell"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.13
+height = 0.32
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1"]
+radius = 3.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_Fur"]
+albedo_color = Color(0.35, 0.32, 0.3, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ear"]
+albedo_color = Color(0.55, 0.4, 0.4, 1)
+roughness = 0.7
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_Body"]
+radius = 0.11
+height = 0.28
+
+[sub_resource type="SphereMesh" id="SphereMesh_Head"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_Snout"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_Ear"]
+radius = 0.06
+height = 0.12
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_Tail"]
+radius = 0.015
+height = 0.5
+
+[node name="Rat" type="CharacterBody3D"]
+script = ExtResource("1_rat")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.14, 0)
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("CapsuleMesh_Body")
+surface_material_override/0 = SubResource("Mat_Fur")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.18, 0.16)
+mesh = SubResource("SphereMesh_Head")
+surface_material_override/0 = SubResource("Mat_Fur")
+
+[node name="Snout" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.15, 0.26)
+mesh = SubResource("SphereMesh_Snout")
+surface_material_override/0 = SubResource("Mat_Fur")
+
+[node name="EarL" type="MeshInstance3D" parent="Visual"]
+position = Vector3(-0.07, 0.26, 0.14)
+scale = Vector3(1, 1, 0.3)
+mesh = SubResource("SphereMesh_Ear")
+surface_material_override/0 = SubResource("Mat_Ear")
+
+[node name="EarR" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0.07, 0.26, 0.14)
+scale = Vector3(1, 1, 0.3)
+mesh = SubResource("SphereMesh_Ear")
+surface_material_override/0 = SubResource("Mat_Ear")
+
+[node name="Tail" type="MeshInstance3D" parent="Visual"]
+position = Vector3(0, 0.08, -0.22)
+rotation_degrees = Vector3(60, 0, 0)
+mesh = SubResource("CapsuleMesh_Tail")
+surface_material_override/0 = SubResource("Mat_Ear")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.16, 0)
+shape = SubResource("CapsuleShape3D_1")
+
+[node name="SpellCaster" type="Node" parent="."]
+script = ExtResource("2_spell")
+
+[node name="InteractArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="InteractShape" type="CollisionShape3D" parent="InteractArea"]
+shape = SubResource("SphereShape3D_1")

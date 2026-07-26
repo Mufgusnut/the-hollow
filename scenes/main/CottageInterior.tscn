@@ -1,0 +1,562 @@
+[gd_scene load_steps=64 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/familiars/Cat.tscn" id="1_cat"]
+[ext_resource type="Script" path="res://scripts/systems/CameraRig.gd" id="2_camrig"]
+[ext_resource type="Script" path="res://scripts/systems/LevelRoot.gd" id="3_levelroot"]
+[ext_resource type="Script" path="res://scripts/systems/SceneDoor.gd" id="4_scenedoor"]
+[ext_resource type="PackedScene" path="res://scenes/props/HiddenCompartment.tscn" id="5_compartment"]
+[ext_resource type="PackedScene" path="res://scenes/props/TomePage.tscn" id="6_tomepage"]
+[ext_resource type="Script" path="res://scripts/props/LogWall.gd" id="7_logwall"]
+[ext_resource type="Script" path="res://scripts/props/StairBlocks.gd" id="8_stairblocks"]
+[ext_resource type="Script" path="res://scripts/props/StairRailing.gd" id="9_stairrailing"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.12, 0.08, 0.1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.5, 0.4, 0.35, 1)
+ambient_light_energy = 0.45
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_SouthSeg"]
+size = Vector3(5.3, 2.6, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_North"]
+size = Vector3(12, 2.6, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_EastWest"]
+size = Vector3(0.3, 2.6, 11)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_DivOuter"]
+size = Vector3(3.8, 2.6, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_DivCenter"]
+size = Vector3(2.4, 2.6, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Partition"]
+size = Vector3(0.3, 2.6, 5.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Floor"]
+size = Vector3(12.4, 0.2, 11.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Floor"]
+size = Vector3(12.4, 0.2, 11.4)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Floor"]
+albedo_color = Color(0.38, 0.26, 0.18, 1)
+roughness = 0.8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_door"]
+size = Vector3(1.0, 2.2, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Ramp"]
+size = Vector3(1.2, 0.2, 5.41)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Rail"]
+size = Vector3(0.06, 0.06, 4.78)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Rail"]
+albedo_color = Color(0.3, 0.2, 0.13, 1)
+roughness = 0.8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_StairsTrigger"]
+size = Vector3(0.9, 1.0, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Hearth"]
+size = Vector3(1.6, 1.4, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Fire"]
+size = Vector3(0.8, 0.5, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Rug"]
+size = Vector3(3.6, 0.05, 2.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Lantern"]
+size = Vector3(0.15, 0.15, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_DiningTable"]
+size = Vector3(1.4, 0.5, 0.9)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ChairSeat"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ChairBack"]
+size = Vector3(0.4, 0.5, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Bookshelf"]
+size = Vector3(1.8, 2.0, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_CoatRack"]
+size = Vector3(0.5, 0.6, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Bed"]
+size = Vector3(2.0, 0.4, 1.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Pillow"]
+size = Vector3(0.55, 0.15, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Dresser"]
+size = Vector3(1.2, 1.2, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Vanity"]
+size = Vector3(0.9, 0.5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Stool"]
+size = Vector3(0.35, 0.4, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Chest"]
+size = Vector3(0.7, 0.4, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_BedroomRug"]
+size = Vector3(2.4, 0.05, 2.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Table"]
+size = Vector3(1.2, 0.5, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Book"]
+size = Vector3(0.4, 0.08, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Shelf"]
+size = Vector3(1.6, 0.15, 0.3)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Bottle"]
+top_radius = 0.04
+bottom_radius = 0.06
+height = 0.18
+
+[sub_resource type="BoxMesh" id="BoxMesh_BigShelf"]
+size = Vector3(0.5, 2.2, 2.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ArmchairSeat"]
+size = Vector3(0.7, 0.5, 0.7)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ArmchairBack"]
+size = Vector3(0.7, 0.8, 0.15)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Cauldron"]
+top_radius = 0.4
+bottom_radius = 0.22
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_Wood"]
+albedo_color = Color(0.4, 0.28, 0.18, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_DarkWood"]
+albedo_color = Color(0.24, 0.16, 0.1, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_Stone"]
+albedo_color = Color(0.4, 0.4, 0.42, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_Fire"]
+albedo_color = Color(0.95, 0.5, 0.15, 1)
+emission_enabled = true
+emission = Color(1, 0.45, 0.1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_Rug"]
+albedo_color = Color(0.5, 0.15, 0.18, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_Rug2"]
+albedo_color = Color(0.45, 0.2, 0.4, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_Lantern"]
+albedo_color = Color(0.1, 0.1, 0.1, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="Mat_Blanket"]
+albedo_color = Color(0.45, 0.12, 0.15, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_Pillow"]
+albedo_color = Color(0.85, 0.8, 0.7, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_Parchment"]
+albedo_color = Color(0.82, 0.72, 0.52, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_BottleGreen"]
+albedo_color = Color(0.2, 0.5, 0.25, 0.85)
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="Mat_BottlePurple"]
+albedo_color = Color(0.4, 0.2, 0.5, 0.85)
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="Mat_BottleBlue"]
+albedo_color = Color(0.2, 0.35, 0.55, 0.85)
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="Mat_Fabric"]
+albedo_color = Color(0.3, 0.35, 0.45, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_Iron"]
+albedo_color = Color(0.12, 0.12, 0.13, 1)
+metallic = 0.4
+roughness = 0.6
+
+[node name="CottageInterior" type="Node3D"]
+script = ExtResource("3_levelroot")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+position = Vector3(0, -0.1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_Floor")
+surface_material_override/0 = SubResource("Mat_Floor")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_Floor")
+
+[node name="SouthWallLeft" type="StaticBody3D" parent="."]
+position = Vector3(-3.35, 1.3, -5.5)
+
+[node name="LogVisual" type="Node3D" parent="SouthWallLeft"]
+script = ExtResource("7_logwall")
+wall_width = 5.3
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthWallLeft"]
+shape = SubResource("BoxShape3D_SouthSeg")
+
+[node name="SouthWallRight" type="StaticBody3D" parent="."]
+position = Vector3(3.35, 1.3, -5.5)
+
+[node name="LogVisual" type="Node3D" parent="SouthWallRight"]
+script = ExtResource("7_logwall")
+wall_width = 5.3
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthWallRight"]
+shape = SubResource("BoxShape3D_SouthSeg")
+
+[node name="NorthWall" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.3, 5.5)
+
+[node name="LogVisual" type="Node3D" parent="NorthWall"]
+script = ExtResource("7_logwall")
+wall_width = 12.0
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NorthWall"]
+shape = SubResource("BoxShape3D_North")
+
+[node name="WestWall" type="StaticBody3D" parent="."]
+position = Vector3(-6, 1.3, 0)
+
+[node name="LogVisual" type="Node3D" parent="WestWall"]
+script = ExtResource("7_logwall")
+rotation_degrees = Vector3(0, 90, 0)
+wall_width = 11.0
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WestWall"]
+shape = SubResource("BoxShape3D_EastWest")
+
+[node name="EastWall" type="StaticBody3D" parent="."]
+position = Vector3(6, 1.3, 0)
+
+[node name="LogVisual" type="Node3D" parent="EastWall"]
+script = ExtResource("7_logwall")
+rotation_degrees = Vector3(0, 90, 0)
+wall_width = 11.0
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EastWall"]
+shape = SubResource("BoxShape3D_EastWest")
+
+[node name="DivWallA" type="StaticBody3D" parent="."]
+position = Vector3(-4.1, 1.3, 0)
+
+[node name="LogVisual" type="Node3D" parent="DivWallA"]
+script = ExtResource("7_logwall")
+wall_width = 3.8
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DivWallA"]
+shape = SubResource("BoxShape3D_DivOuter")
+
+[node name="DivWallC" type="StaticBody3D" parent="."]
+position = Vector3(4.1, 1.3, 0)
+
+[node name="LogVisual" type="Node3D" parent="DivWallC"]
+script = ExtResource("7_logwall")
+wall_width = 3.8
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DivWallC"]
+shape = SubResource("BoxShape3D_DivOuter")
+
+[node name="DivWallB" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.3, 0)
+
+[node name="LogVisual" type="Node3D" parent="DivWallB"]
+script = ExtResource("7_logwall")
+wall_width = 2.4
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DivWallB"]
+shape = SubResource("BoxShape3D_DivCenter")
+
+[node name="Partition" type="StaticBody3D" parent="."]
+position = Vector3(0, 1.3, 2.75)
+
+[node name="LogVisual" type="Node3D" parent="Partition"]
+script = ExtResource("7_logwall")
+rotation_degrees = Vector3(0, 90, 0)
+wall_width = 5.5
+wall_height = 2.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Partition"]
+shape = SubResource("BoxShape3D_Partition")
+
+[node name="Rug" type="MeshInstance3D" parent="."]
+position = Vector3(-1.0, 0.03, -2.8)
+mesh = SubResource("BoxMesh_Rug")
+surface_material_override/0 = SubResource("Mat_Rug")
+
+[node name="Hearth" type="MeshInstance3D" parent="."]
+position = Vector3(-4.2, 0.7, -0.6)
+mesh = SubResource("BoxMesh_Hearth")
+surface_material_override/0 = SubResource("Mat_Stone")
+
+[node name="Fire" type="MeshInstance3D" parent="."]
+position = Vector3(-4.2, 0.35, -0.5)
+mesh = SubResource("BoxMesh_Fire")
+surface_material_override/0 = SubResource("Mat_Fire")
+
+[node name="HearthLight" type="OmniLight3D" parent="."]
+position = Vector3(-4.2, 0.6, -0.5)
+light_color = Color(1, 0.55, 0.2, 1)
+light_energy = 1.3
+omni_range = 4.5
+
+[node name="Lantern" type="MeshInstance3D" parent="."]
+position = Vector3(-1.0, 2.2, -2.8)
+mesh = SubResource("BoxMesh_Lantern")
+surface_material_override/0 = SubResource("Mat_Lantern")
+
+[node name="LanternLight" type="OmniLight3D" parent="."]
+position = Vector3(-1.0, 2.2, -2.8)
+light_color = Color(1, 0.85, 0.55, 1)
+light_energy = 1.0
+omni_range = 6.0
+
+[node name="DiningTable" type="MeshInstance3D" parent="."]
+position = Vector3(-3.5, 0.25, -3.6)
+mesh = SubResource("BoxMesh_DiningTable")
+surface_material_override/0 = SubResource("Mat_Wood")
+
+[node name="Chair1Seat" type="MeshInstance3D" parent="."]
+position = Vector3(-3.9, 0.2, -3.2)
+mesh = SubResource("BoxMesh_ChairSeat")
+surface_material_override/0 = SubResource("Mat_DarkWood")
+
+[node name="Chair1Back" type="MeshInstance3D" parent="."]
+position = Vector3(-3.9, 0.45, -3.38)
+mesh = SubResource("BoxMesh_ChairBack")
+surface_material_override/0 = SubResource("Mat_DarkWood")
+
+[node name="Chair2Seat" type="MeshInstance3D" parent="."]
+position = Vector3(-3.1, 0.2, -3.2)
+mesh = SubResource("BoxMesh_ChairSeat")
+surface_material_override/0 = SubResource("Mat_DarkWood")
+
+[node name="Chair2Back" type="MeshInstance3D" parent="."]
+position = Vector3(-3.1, 0.45, -3.38)
+mesh = SubResource("BoxMesh_ChairBack")
+surface_material_override/0 = SubResource("Mat_DarkWood")
+
+[node name="Bookshelf" type="MeshInstance3D" parent="."]
+position = Vector3(3.0, 1.0, -5.3)
+mesh = SubResource("BoxMesh_Bookshelf")
+surface_material_override/0 = SubResource("Mat_Wood")
+
+[node name="CoatRack" type="MeshInstance3D" parent="."]
+position = Vector3(1.0, 1.6, -5.3)
+mesh = SubResource("BoxMesh_CoatRack")
+surface_material_override/0 = SubResource("Mat_DarkWood")
+
+[node name="StairsRamp" type="StaticBody3D" parent="."]
+position = Vector3(5.0, 0.8, -2.65)
+rotation_degrees = Vector3(-19.6, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StairsRamp"]
+shape = SubResource("BoxShape3D_Ramp")
+
+[node name="StairBlocks" type="Node3D" parent="."]
+position = Vector3(5.0, 0, -4.9)
+script = ExtResource("8_stairblocks")
+step_count = 6
+total_rise = 1.6
+total_run = 4.5
+step_width = 1.1
+
+[node name="StairRailingPosts" type="Node3D" parent="."]
+position = Vector3(4.35, 0, -4.9)
+script = ExtResource("9_stairrailing")
+post_count = 6
+total_rise = 1.6
+total_run = 4.5
+
+[node name="StairHandrail" type="MeshInstance3D" parent="."]
+position = Vector3(4.35, 1.65, -2.65)
+rotation_degrees = Vector3(-19.6, 0, 0)
+mesh = SubResource("BoxMesh_Rail")
+surface_material_override/0 = SubResource("Mat_Rail")
+
+[node name="SpawnAtStairsBottom" type="Marker3D" parent="."]
+position = Vector3(5.0, 0, -4.5)
+rotation_degrees = Vector3(0, 180, 0)
+
+[node name="StairsUpTrigger" type="Area3D" parent="."]
+position = Vector3(5.0, 1.9, -0.4)
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("4_scenedoor")
+target_scene = "res://scenes/main/CottageUpstairs.tscn"
+spawn_marker_name = &"SpawnUpstairs"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StairsUpTrigger"]
+shape = SubResource("BoxShape3D_StairsTrigger")
+
+[node name="Bed" type="MeshInstance3D" parent="."]
+position = Vector3(-4.2, 0.2, 4.2)
+mesh = SubResource("BoxMesh_Bed")
+surface_material_override/0 = SubResource("Mat_Blanket")
+
+[node name="Pillow" type="MeshInstance3D" parent="."]
+position = Vector3(-4.2, 0.42, 4.6)
+mesh = SubResource("BoxMesh_Pillow")
+surface_material_override/0 = SubResource("Mat_Pillow")
+
+[node name="Dresser" type="MeshInstance3D" parent="."]
+position = Vector3(-1.0, 0.6, 5.0)
+mesh = SubResource("BoxMesh_Dresser")
+surface_material_override/0 = SubResource("Mat_DarkWood")
+
+[node name="Vanity" type="MeshInstance3D" parent="."]
+position = Vector3(-4.7, 0.25, 1.0)
+mesh = SubResource("BoxMesh_Vanity")
+surface_material_override/0 = SubResource("Mat_Wood")
+
+[node name="VanityStool" type="MeshInstance3D" parent="."]
+position = Vector3(-4.7, 0.2, 1.5)
+mesh = SubResource("BoxMesh_Stool")
+surface_material_override/0 = SubResource("Mat_Fabric")
+
+[node name="Chest" type="MeshInstance3D" parent="."]
+position = Vector3(-4.2, 0.25, 3.3)
+mesh = SubResource("BoxMesh_Chest")
+surface_material_override/0 = SubResource("Mat_DarkWood")
+
+[node name="BedroomRug" type="MeshInstance3D" parent="."]
+position = Vector3(-2.5, 0.03, 3.0)
+mesh = SubResource("BoxMesh_BedroomRug")
+surface_material_override/0 = SubResource("Mat_Rug2")
+
+[node name="BedroomLight" type="OmniLight3D" parent="."]
+position = Vector3(-2.5, 1.8, 3.0)
+light_color = Color(1, 0.85, 0.6, 1)
+light_energy = 0.9
+omni_range = 5.5
+
+[node name="Table" type="MeshInstance3D" parent="."]
+position = Vector3(1.2, 0.25, 1.2)
+mesh = SubResource("BoxMesh_Table")
+surface_material_override/0 = SubResource("Mat_Wood")
+
+[node name="Book" type="MeshInstance3D" parent="."]
+position = Vector3(1.2, 0.54, 1.2)
+mesh = SubResource("BoxMesh_Book")
+surface_material_override/0 = SubResource("Mat_Parchment")
+
+[node name="Shelf" type="MeshInstance3D" parent="."]
+position = Vector3(4.5, 1.6, 5.2)
+mesh = SubResource("BoxMesh_Shelf")
+surface_material_override/0 = SubResource("Mat_Wood")
+
+[node name="Bottle1" type="MeshInstance3D" parent="."]
+position = Vector3(4.1, 1.72, 5.2)
+mesh = SubResource("CylinderMesh_Bottle")
+surface_material_override/0 = SubResource("Mat_BottleGreen")
+
+[node name="Bottle2" type="MeshInstance3D" parent="."]
+position = Vector3(4.5, 1.72, 5.2)
+mesh = SubResource("CylinderMesh_Bottle")
+surface_material_override/0 = SubResource("Mat_BottlePurple")
+
+[node name="Bottle3" type="MeshInstance3D" parent="."]
+position = Vector3(4.9, 1.72, 5.2)
+mesh = SubResource("CylinderMesh_Bottle")
+surface_material_override/0 = SubResource("Mat_BottleBlue")
+
+[node name="BigShelf" type="MeshInstance3D" parent="."]
+position = Vector3(5.65, 1.2, 2.0)
+mesh = SubResource("BoxMesh_BigShelf")
+surface_material_override/0 = SubResource("Mat_Wood")
+
+[node name="ArmchairSeat" type="MeshInstance3D" parent="."]
+position = Vector3(1.0, 0.3, 4.5)
+mesh = SubResource("BoxMesh_ArmchairSeat")
+surface_material_override/0 = SubResource("Mat_Fabric")
+
+[node name="ArmchairBack" type="MeshInstance3D" parent="."]
+position = Vector3(1.0, 0.65, 4.8)
+mesh = SubResource("BoxMesh_ArmchairBack")
+surface_material_override/0 = SubResource("Mat_Fabric")
+
+[node name="Cauldron" type="MeshInstance3D" parent="."]
+position = Vector3(4.0, 0.3, 1.0)
+mesh = SubResource("CylinderMesh_Cauldron")
+surface_material_override/0 = SubResource("Mat_Iron")
+
+[node name="CauldronGlow" type="OmniLight3D" parent="."]
+position = Vector3(4.0, 0.5, 1.0)
+light_color = Color(0.4, 0.9, 0.5, 1)
+light_energy = 0.6
+omni_range = 1.8
+
+[node name="StudyLight" type="OmniLight3D" parent="."]
+position = Vector3(3.0, 1.8, 3.0)
+light_color = Color(1, 0.85, 0.6, 1)
+light_energy = 0.9
+omni_range = 5.5
+
+[node name="HiddenCompartmentStudy" parent="." instance=ExtResource("5_compartment")]
+position = Vector3(2.0, 0, 4.5)
+reveal_scene = ExtResource("6_tomepage")
+
+[node name="SpawnAtDoor" type="Marker3D" parent="."]
+position = Vector3(0, 0, -4.4)
+
+[node name="DoorToOutside" type="Area3D" parent="."]
+position = Vector3(0, 1, -5.3)
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("4_scenedoor")
+target_scene = "res://scenes/main/CottageHome.tscn"
+spawn_marker_name = &"SpawnFromInside"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorToOutside"]
+shape = SubResource("BoxShape3D_door")
+
+[node name="Cat" parent="." instance=ExtResource("1_cat")]
+position = Vector3(0, 0, -4.4)
+
+[node name="CameraRig" type="Node3D" parent="."]
+rotation_degrees = Vector3(-30, 45, 0)
+script = ExtResource("2_camrig")
+target_path = NodePath("../Cat")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+position = Vector3(0, 0, 14)
+current = true
