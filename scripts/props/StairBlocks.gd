@@ -22,11 +22,18 @@ func _ready() -> void:
 	var dir := run_direction.normalized()
 	var step_rise := total_rise / float(step_count)
 	var step_run := total_run / float(step_count)
+	## dir is always axis-aligned (X or Z) in practice, so the box's size
+	## along the travel axis is step_run and along the perpendicular
+	## (cross/walking-width) axis is step_width — computed this way
+	## instead of always (step_width, height, step_run) so flights that
+	## run along X get sized correctly too, not just the Z-running case.
+	var along := Vector3(absf(dir.x), 0.0, absf(dir.z))
+	var across := Vector3(absf(dir.z), 0.0, absf(dir.x))
 
 	for i in range(step_count):
 		var height := step_rise * (i + 1)
 		var box := BoxMesh.new()
-		box.size = Vector3(step_width, height, step_run)
+		box.size = along * step_run + across * step_width + Vector3(0, height, 0)
 		var mesh_instance := MeshInstance3D.new()
 		mesh_instance.mesh = box
 		mesh_instance.material_override = material

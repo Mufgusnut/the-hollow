@@ -56,7 +56,17 @@ roughness = 0.95
 size = Vector3(1.0, 2.2, 0.6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_doorEW"]
-size = Vector3(0.6, 2.2, 1.0)
+size = Vector3(2.0, 2.2, 1.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Guard"]
+size = Vector3(7.75, 0.5, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Guard"]
+size = Vector3(7.75, 0.5, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Guard"]
+albedo_color = Color(0.22, 0.32, 0.16, 1)
+roughness = 0.95
 
 [sub_resource type="BoxMesh" id="BoxMesh_Stream"]
 size = Vector3(20, 0.05, 2)
@@ -159,6 +169,26 @@ pine_scene = ExtResource("7_pine")
 bush_scene = ExtResource("8_bush")
 gap_center = Vector2(-11.5, -2.5)
 gap_radius = 2.5
+
+[node name="ForestPathGuardSouth" type="StaticBody3D" parent="."]
+position = Vector3(-7.875, 0.25, -3.25)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ForestPathGuardSouth"]
+mesh = SubResource("BoxMesh_Guard")
+surface_material_override/0 = SubResource("Mat_Guard")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ForestPathGuardSouth"]
+shape = SubResource("BoxShape3D_Guard")
+
+[node name="ForestPathGuardNorth" type="StaticBody3D" parent="."]
+position = Vector3(-7.875, 0.25, -1.75)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ForestPathGuardNorth"]
+mesh = SubResource("BoxMesh_Guard")
+surface_material_override/0 = SubResource("Mat_Guard")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ForestPathGuardNorth"]
+shape = SubResource("BoxShape3D_Guard")
 
 [node name="SpawnFromVillage" type="Marker3D" parent="."]
 position = Vector3(-10, 0, -2.5)
