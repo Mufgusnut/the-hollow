@@ -454,7 +454,7 @@ position = Vector3(6.95, 0.7, -4.5)
 shape = SubResource("BoxShape3D_Guard4")
 
 [node name="StairLanding" type="StaticBody3D" parent="."]
-position = Vector3(5.9, 0.8, -4.5)
+position = Vector3(5.9, 0.7, -4.5)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StairLanding"]
 mesh = SubResource("BoxMesh_Landing")
