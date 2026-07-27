@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://scripts/props/Hover.gd" id="1_hover"]
+[ext_resource type="Script" path="res://scripts/npc/WitchQuestGiver.gd" id="2_questgiver"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
 radius = 0.35
@@ -60,7 +61,11 @@ roughness = 0.8
 albedo_color = Color(0.75, 0.65, 0.35, 1)
 roughness = 0.9
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_Interact"]
+radius = 2.0
+
 [node name="Witch" type="StaticBody3D"]
+script = ExtResource("2_questgiver")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 position = Vector3(0, 0.75, 0)
@@ -113,3 +118,10 @@ position = Vector3(-0.08, -0.45, 0)
 rotation_degrees = Vector3(0, 0, 15)
 mesh = SubResource("CylinderMesh_BroomBristles")
 surface_material_override/0 = SubResource("Mat_BroomStraw")
+
+[node name="InteractZone" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="InteractShape" type="CollisionShape3D" parent="InteractZone"]
+shape = SubResource("SphereShape3D_Interact")

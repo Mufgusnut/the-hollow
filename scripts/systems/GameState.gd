@@ -13,6 +13,11 @@ var pending_spawn_marker: StringName = &""
 ## scene can still be opened directly (e.g. for testing) without going
 ## through character select first.
 var selected_familiar: String = "Cat"
+## Tracks the healing-draught errand across scenes: "none" ->
+## "potion_assigned" (after talking to the witch) -> "potion_delivered"
+## (after talking to Mira in town). A plain string rather than a quest
+## framework since there's exactly one quest right now.
+var quest_stage: String = "none"
 
 func capture_from(caster: SpellCaster) -> void:
 	known_spells = caster.known_spells.duplicate()

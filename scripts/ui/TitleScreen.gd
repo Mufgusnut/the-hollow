@@ -1,8 +1,8 @@
 extends Control
 class_name TitleScreen
 ## The game's true entry point (project main scene) — starry backdrop,
-## title, and a "press any key" prompt that hands off to character
-## select.
+## title, and a "press any key" prompt that hands off to the backstory
+## intro video, which itself hands off to character select.
 
 @onready var _prompt: Label = $PromptLabel
 @onready var _music: AudioStreamPlayer = $Music
@@ -29,4 +29,4 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _advance() -> void:
 	_advancing = true
-	get_tree().change_scene_to_file("res://scenes/ui/CharacterSelect.tscn")
+	get_tree().change_scene_to_file("res://scenes/ui/IntroVideo.tscn")

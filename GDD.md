@@ -26,19 +26,34 @@ resolve.
 ## Narrative Structure
 
 ### Act 1 — The Hollow at Peace (tutorial)
-Player lives with their master, running small errands (deliver a poultice, fetch herbs, chase
-crows off the garden) that double as movement/interaction tutorials. Establishes the bond, the
-village's genuine goodwill, and the master's role as healer/helper to the community.
+Opens on the witch as the village has always known her: helping with her magic, delivering
+remedies, asking nothing back. Small errands here (fetch herbs, tend the garden) double as
+movement/interaction tutorials and establish the bond before anything goes wrong.
 
-A string of bad luck hits the village (a blight, a sick child, a stillbirth) with no real cause.
-Fear looks for a target. Rumors spread — someone saw lights in the woods, a black shape at a
-window. Suspicion of the "witch" grows despite years of help she's given. Player has small
-choices/observations here (who's spreading what) that seed Act 2 investigation threads.
+Then a plague moves through the village. A child dies. There's no real cause, but fear needs a
+target, and the whispers land on her — lights in the woods, a shape at a window, a witch's curse
+by any other name. The village warns her outright: stop using magic, or else. Unbeknownst to
+her, it goes further than warnings — witch hunters are already in town, quietly paid for by
+villagers pooling what they can afford, planning to kill her.
 
-One night, a witch-hunter clan raids the cottage. The player is knocked aside, trapped, or hidden
-(a short chase/stealth sequence with no way to intervene) and comes to afterward to find the
-cottage ransacked and the master dead. The spellbook has been torn apart, its pages scattered
-on the wind.
+**This is where the player actually takes control for the first time.** A second child is
+dying. The witch has brewed the last healing draught that can save them, but she doesn't dare
+set foot in the village herself — not with what they're already saying about her. So she does
+something she swore she wouldn't: lays a brilliance charm on her familiar, *temporarily*, just
+enough wit to carry the draught to the square herself. She's explicit about the stakes: don't be
+seen, don't be caught doing anything a small animal shouldn't be able to do, or suspicion lands
+squarely back on her. She promises to lift the charm the moment the familiar is home safe.
+
+This errand *is* the tutorial and the game's first real tension in one move: the player
+experiences the village's suspicion firsthand, under a countdown of sorts (a dying child, a
+temporary charm, hunters already circling), before the raid the player has no way to stop.
+
+One night — presumably not long after — a witch-hunter clan raids the cottage. The player is
+knocked aside, trapped, or hidden (a short chase/stealth sequence with no way to intervene) and
+comes to afterward to find the cottage ransacked and the master dead. Whatever was meant to be
+temporary about the charm doesn't get undone; the spellbook has been torn apart, its pages
+scattered on the wind. *(The exact mechanical/narrative hinge — how "temporary" becomes
+"permanent" the night she dies — is still to be nailed down; noting it here as open.)*
 
 ### Act 2 — Gathering the Wind (main body)
 Open-ish exploration across the region's zones (see World Structure). Core loop: find tome pages
