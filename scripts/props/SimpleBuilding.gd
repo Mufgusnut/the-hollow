@@ -18,6 +18,7 @@ enum WallStyle { STONE, WOOD, MIXED }
 func _ready() -> void:
 	_build_walls()
 	_build_roof()
+	_build_trespass_zone()
 
 func _build_walls() -> void:
 	var mat := _wall_material()
@@ -99,3 +100,30 @@ func _build_roof() -> void:
 	mesh_instance.position = Vector3(0, wall_height + 0.15, 0)
 	mesh_instance.rotation_degrees = Vector3(-8, 0, 0)
 	add_child(mesh_instance)
+
+## Ducking through the door gap into the building's footprint counts as
+## trespassing — during the stealth potion errand (see
+## GameOverManager.gd) that's an instant catch, same as a patrolling
+## villager spotting you. Harmless everywhere else since
+## trigger_game_over() no-ops unless the errand is actually active.
+func _build_trespass_zone() -> void:
+	var area := Area3D.new()
+	area.collision_layer = 0
+	area.collision_mask = 1
+	add_child(area)
+
+	## The door gap sits on the south wall at z = -depth/2 (see
+	## _build_walls) — the zone has to span from right there inward to
+	## actually cover the only opening a familiar could walk through.
+	var shape := BoxShape3D.new()
+	shape.size = Vector3(door_width, wall_height, depth - 0.3)
+	var collision := CollisionShape3D.new()
+	collision.shape = shape
+	area.add_child(collision)
+	area.position = Vector3(0, wall_height / 2.0, 0)
+
+	area.body_entered.connect(_on_trespass)
+
+func _on_trespass(body: Node3D) -> void:
+	if body is FamiliarController:
+		GameOverManager.trigger_game_over()

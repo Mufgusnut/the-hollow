@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://scenes/props/Tree.tscn" id="7_tree"]
 [ext_resource type="Script" path="res://scripts/props/StoneWallRing.gd" id="8_wallring"]
 [ext_resource type="PackedScene" path="res://scenes/npc/Mira.tscn" id="9_mira"]
+[ext_resource type="PackedScene" path="res://scenes/npc/PatrolVillager.tscn" id="10_patrol"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -112,7 +113,7 @@ mesh = SubResource("BoxMesh_Spur")
 surface_material_override/0 = SubResource("Mat_Dirt")
 
 [node name="Mira" parent="." instance=ExtResource("9_mira")]
-position = Vector3(10, 0, -4.3)
+position = Vector3(0, 0, 4.3)
 rotation_degrees = Vector3(0, 180, 0)
 
 [node name="TailorWalk" type="MeshInstance3D" parent="."]
@@ -206,6 +207,27 @@ position = Vector3(16, 0, -4)
 
 [node name="Tree6" parent="." instance=ExtResource("7_tree")]
 position = Vector3(16, 0, 4)
+
+[node name="Tree7" parent="." instance=ExtResource("7_tree")]
+position = Vector3(3, 0, -3.3)
+
+[node name="Tree8" parent="." instance=ExtResource("7_tree")]
+position = Vector3(-4, 0, 3.3)
+
+[node name="Patrol1" parent="." instance=ExtResource("10_patrol")]
+position = Vector3(8, 0, -1.8)
+point_a = Vector3(8, 0, -1.8)
+point_b = Vector3(8, 0, 1.8)
+
+[node name="Patrol2" parent="." instance=ExtResource("10_patrol")]
+position = Vector3(2, 0, -1.8)
+point_a = Vector3(2, 0, -1.8)
+point_b = Vector3(2, 0, 1.8)
+
+[node name="Patrol3" parent="." instance=ExtResource("10_patrol")]
+position = Vector3(-4, 0, -1.8)
+point_a = Vector3(-4, 0, -1.8)
+point_b = Vector3(-4, 0, 1.8)
 
 [node name="SpawnAtForestPath" type="Marker3D" parent="."]
 position = Vector3(17, 0, 0)

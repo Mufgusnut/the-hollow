@@ -18,6 +18,10 @@ var selected_familiar: String = "Cat"
 ## (after talking to Mira in town). A plain string rather than a quest
 ## framework since there's exactly one quest right now.
 var quest_stage: String = "none"
+## True while the active familiar is standing in a HidingSpot (a tree
+## for Crow, the well for Snake) — PatrolVillager.gd's wide notice
+## radius ignores the familiar while this is set.
+var is_hidden: bool = false
 
 func capture_from(caster: SpellCaster) -> void:
 	known_spells = caster.known_spells.duplicate()
