@@ -20,6 +20,9 @@ ambient_light_energy = 0.65
 [sub_resource type="BoxShape3D" id="BoxShape3D_SouthSeg"]
 size = Vector3(5.3, 2.6, 0.3)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_SouthRight"]
+size = Vector3(6.8, 2.6, 0.3)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_North"]
 size = Vector3(13.5, 2.6, 0.3)
 
@@ -74,7 +77,16 @@ albedo_color = Color(0.3, 0.2, 0.13, 1)
 roughness = 0.8
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_StairsTrigger"]
-size = Vector3(0.9, 1.2, 0.9)
+size = Vector3(2.6, 1.6, 1.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Guard1"]
+size = Vector3(4.3, 2.0, 0.15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Guard23"]
+size = Vector3(0.15, 2.0, 3.54)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Guard4"]
+size = Vector3(0.15, 2.0, 2.0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_Hearth"]
 size = Vector3(1.6, 1.4, 0.6)
@@ -243,15 +255,15 @@ wall_height = 2.6
 shape = SubResource("BoxShape3D_SouthSeg")
 
 [node name="SouthWallRight" type="StaticBody3D" parent="."]
-position = Vector3(3.35, 1.3, -5.5)
+position = Vector3(4.1, 1.3, -5.5)
 
 [node name="LogVisual" type="Node3D" parent="SouthWallRight"]
 script = ExtResource("7_logwall")
-wall_width = 5.3
+wall_width = 6.8
 wall_height = 2.6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SouthWallRight"]
-shape = SubResource("BoxShape3D_SouthSeg")
+shape = SubResource("BoxShape3D_SouthRight")
 
 [node name="NorthWall" type="StaticBody3D" parent="."]
 position = Vector3(0.75, 1.3, 5.5)
@@ -401,18 +413,45 @@ mesh = SubResource("BoxMesh_CoatRack")
 surface_material_override/0 = SubResource("Mat_DarkWood")
 
 [node name="StairsRamp" type="StaticBody3D" parent="."]
-position = Vector3(3.1, 0.4, -4.5)
+position = Vector3(3.1217, 0.3024, -4.5)
 rotation_degrees = Vector3(0, 0, 12.5288)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StairsRamp"]
 shape = SubResource("BoxShape3D_Ramp")
 
 [node name="StairsRamp2" type="StaticBody3D" parent="."]
-position = Vector3(5.9, 1.2, -2.1)
+position = Vector3(5.9, 1.1039, -2.0725)
 rotation_degrees = Vector3(-15.9454, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StairsRamp2"]
 shape = SubResource("BoxShape3D_Ramp2")
+
+[node name="StairGuardFlight1" type="StaticBody3D" parent="."]
+position = Vector3(3.1, 0.4, -3.45)
+rotation_degrees = Vector3(0, 0, 12.5288)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StairGuardFlight1"]
+shape = SubResource("BoxShape3D_Guard1")
+
+[node name="StairGuardFlight2West" type="StaticBody3D" parent="."]
+position = Vector3(4.85, 1.2, -2.1)
+rotation_degrees = Vector3(-15.9454, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StairGuardFlight2West"]
+shape = SubResource("BoxShape3D_Guard23")
+
+[node name="StairGuardFlight2East" type="StaticBody3D" parent="."]
+position = Vector3(6.95, 1.2, -2.1)
+rotation_degrees = Vector3(-15.9454, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StairGuardFlight2East"]
+shape = SubResource("BoxShape3D_Guard23")
+
+[node name="StairGuardLandingEast" type="StaticBody3D" parent="."]
+position = Vector3(6.95, 0.7, -4.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StairGuardLandingEast"]
+shape = SubResource("BoxShape3D_Guard4")
 
 [node name="StairLanding" type="StaticBody3D" parent="."]
 position = Vector3(5.9, 0.8, -4.5)
@@ -470,12 +509,26 @@ rotation_degrees = Vector3(-15.9454, 0, 0)
 mesh = SubResource("BoxMesh_Rail2")
 surface_material_override/0 = SubResource("Mat_Rail")
 
+[node name="StairRailingPosts3" type="Node3D" parent="."]
+position = Vector3(6.95, 0.8, -3.5)
+script = ExtResource("9_stairrailing")
+post_count = 5
+total_rise = 0.8
+total_run = 2.8
+run_direction = Vector3(0, 0, 1)
+
+[node name="StairHandrail3" type="MeshInstance3D" parent="."]
+position = Vector3(6.95, 2.05, -2.1)
+rotation_degrees = Vector3(-15.9454, 0, 0)
+mesh = SubResource("BoxMesh_Rail2")
+surface_material_override/0 = SubResource("Mat_Rail")
+
 [node name="SpawnAtStairsBottom" type="Marker3D" parent="."]
 position = Vector3(0.5, 0, -4.5)
 rotation_degrees = Vector3(0, 90, 0)
 
 [node name="StairsUpTrigger" type="Area3D" parent="."]
-position = Vector3(5.9, 1.9, -0.65)
+position = Vector3(5.9, 1.8, -1.0)
 collision_layer = 0
 collision_mask = 1
 script = ExtResource("4_scenedoor")
