@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/IntroVideo.gd" id="1_introvideo"]
+[ext_resource type="VideoStreamTheora" path="res://assets/video/IntroBackstory.ogv" id="2_video"]
 
 [node name="IntroVideo" type="Control"]
 anchor_right = 1.0
@@ -15,6 +16,7 @@ color = Color(0, 0, 0, 1)
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+stream = ExtResource("2_video")
 expand = true
 autoplay = false
 
