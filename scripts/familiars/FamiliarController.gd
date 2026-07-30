@@ -26,6 +26,13 @@ class_name FamiliarController
 @export var blink_duration: float = 1.0
 @export var blink_interval: float = 0.1
 
+## Set by scripted-sequence code (e.g. CottageHome.gd's hunters-leaving
+## beat) to take movement/interaction away from the player without
+## tearing down the scene the way a cutscene swap would. Checked at the
+## top of both input entry points rather than threaded through every
+## branch below.
+var input_locked: bool = false
+
 var _move_target: Vector3
 var _has_move_target: bool = false
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)
@@ -45,22 +52,24 @@ func _ready() -> void:
 	_last_safe_position = global_position
 
 func _unhandled_input(event: InputEvent) -> void:
+	if input_locked:
+		return
 	if event.is_action_pressed("click_move"):
 		_handle_click()
 
 func _physics_process(delta: float) -> void:
-	var input_dir := _get_camera_relative_input()
+	var input_dir := Vector3.ZERO if input_locked else _get_camera_relative_input()
 
 	if input_dir != Vector3.ZERO:
 		_has_move_target = false
 		_move(input_dir, delta)
-	elif _has_move_target:
+	elif _has_move_target and not input_locked:
 		_move_to_target(delta)
 	else:
 		_apply_friction(delta)
 
 	if is_on_floor():
-		if Input.is_action_just_pressed("jump"):
+		if not input_locked and Input.is_action_just_pressed("jump"):
 			velocity.y = jump_velocity
 	else:
 		velocity.y -= _gravity * delta

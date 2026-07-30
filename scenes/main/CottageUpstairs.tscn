@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3]
+[gd_scene load_steps=59 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/familiars/Cat.tscn" id="1_cat"]
 [ext_resource type="Script" path="res://scripts/systems/CameraRig.gd" id="2_camrig"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scripts/props/LogWall.gd" id="5_logwall"]
 [ext_resource type="Script" path="res://scripts/props/MagicMirror.gd" id="6_magicmirror"]
 [ext_resource type="PackedScene" path="res://scenes/props/Witch.tscn" id="7_witch"]
+[ext_resource type="Script" path="res://scripts/main/CottageUpstairs.gd" id="8_cottageupstairs"]
+[ext_resource type="PackedScene" path="res://scenes/npc/WitchBody.tscn" id="9_witchbody"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -232,7 +234,7 @@ albedo_color = Color(0.75, 0.65, 0.55, 0.85)
 roughness = 0.3
 
 [node name="CottageUpstairs" type="Node3D"]
-script = ExtResource("3_levelroot")
+script = ExtResource("8_cottageupstairs")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")
@@ -532,6 +534,10 @@ omni_range = 5.0
 
 [node name="Witch" parent="." instance=ExtResource("7_witch")]
 position = Vector3(2.2, 0, 2.4)
+
+[node name="WitchBody" parent="." instance=ExtResource("9_witchbody")]
+position = Vector3(2.2, 0, 2.75)
+rotation_degrees = Vector3(0, -20, 0)
 
 [node name="MagicMirrorFrame" type="MeshInstance3D" parent="."]
 position = Vector3(2.2, 1.6, 3.35)

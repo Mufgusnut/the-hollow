@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Cloak"]
+top_radius = 0.2
+bottom_radius = 0.4
+height = 1.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_Hood"]
+radius = 0.19
+height = 0.38
+
+[sub_resource type="StandardMaterial3D" id="Mat_Cloak"]
+albedo_color = Color(0.04, 0.035, 0.05, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_HoodShadow"]
+albedo_color = Color(0.01, 0.01, 0.015, 1)
+roughness = 0.9
+
+[node name="WitchHunter" type="Node3D"]
+
+[node name="Cloak" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.7, 0)
+mesh = SubResource("CylinderMesh_Cloak")
+surface_material_override/0 = SubResource("Mat_Cloak")
+
+[node name="Hood" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.42, 0)
+mesh = SubResource("SphereMesh_Hood")
+surface_material_override/0 = SubResource("Mat_HoodShadow")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3]
+[gd_scene load_steps=26 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/props/Cottage.tscn" id="1_cottage"]
 [ext_resource type="PackedScene" path="res://scenes/familiars/Cat.tscn" id="2_cat"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://scenes/props/PineTree.tscn" id="7_pine"]
 [ext_resource type="PackedScene" path="res://scenes/props/Bush.tscn" id="8_bush"]
 [ext_resource type="Script" path="res://scripts/props/ForestBorder.gd" id="9_forestborder"]
+[ext_resource type="Script" path="res://scripts/main/CottageHome.gd" id="10_cottagehome"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -77,7 +78,7 @@ roughness = 0.15
 metallic = 0.2
 
 [node name="CottageHome" type="Node3D"]
-script = ExtResource("4_levelroot")
+script = ExtResource("10_cottagehome")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")
@@ -208,6 +209,10 @@ shape = SubResource("BoxShape3D_doorEW")
 [node name="SpawnFromInside" type="Marker3D" parent="."]
 position = Vector3(0, 0, -3.6)
 rotation_degrees = Vector3(0, 180, 0)
+
+[node name="SpawnPostRaid" type="Marker3D" parent="."]
+position = Vector3(2.5, 0, -3)
+rotation_degrees = Vector3(0, -90, 0)
 
 [node name="DoorToInside" type="Area3D" parent="."]
 position = Vector3(0, 1, -2.5)

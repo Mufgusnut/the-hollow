@@ -13,10 +13,15 @@ var pending_spawn_marker: StringName = &""
 ## scene can still be opened directly (e.g. for testing) without going
 ## through character select first.
 var selected_familiar: String = "Cat"
-## Tracks the healing-draught errand across scenes: "none" ->
+## Tracks Act 1's story progression across scenes: "none" ->
 ## "potion_assigned" (after talking to the witch) -> "potion_delivered"
-## (after talking to Mira in town). A plain string rather than a quest
-## framework since there's exactly one quest right now.
+## (after talking to Mira in town) -> "raid_aftermath" (RaidCutscene.gd
+## sets this right before handing off to CottageHome, which then plays
+## the hunters-leaving beat with input locked — see CottageHome.gd) ->
+## "witch_dead" (permanent: hunters are gone, player has control back,
+## and CottageUpstairs.gd swaps the living Witch for WitchBody at the
+## mirror). A plain string rather than a quest framework since there's
+## exactly one questline right now.
 var quest_stage: String = "none"
 ## True while the active familiar is standing in a HidingSpot (a tree
 ## for Crow, the well for Snake) — PatrolVillager.gd's wide notice

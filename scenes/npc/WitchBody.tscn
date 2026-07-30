@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/npc/WitchBody.gd" id="1_witchbody"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Robe"]
+top_radius = 0.22
+bottom_radius = 0.45
+height = 1.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_Head"]
+radius = 0.17
+height = 0.34
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_HatBrim"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.035
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_HatCone"]
+top_radius = 0.0
+bottom_radius = 0.15
+height = 0.45
+
+[sub_resource type="StandardMaterial3D" id="Mat_RobeBlack"]
+albedo_color = Color(0.05, 0.05, 0.07, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="Mat_Skin"]
+albedo_color = Color(0.8, 0.63, 0.55, 1)
+roughness = 0.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_Interact"]
+radius = 2.0
+
+[node name="WitchBody" type="StaticBody3D"]
+script = ExtResource("1_witchbody")
+
+[node name="Robe" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.32, 0)
+rotation_degrees = Vector3(0, 0, 90)
+mesh = SubResource("CylinderMesh_Robe")
+surface_material_override/0 = SubResource("Mat_RobeBlack")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+position = Vector3(0.68, 0.24, 0.05)
+mesh = SubResource("SphereMesh_Head")
+surface_material_override/0 = SubResource("Mat_Skin")
+
+[node name="HatBrim" type="MeshInstance3D" parent="."]
+position = Vector3(0.62, 0.28, -0.08)
+rotation_degrees = Vector3(0, 10, 82)
+mesh = SubResource("CylinderMesh_HatBrim")
+surface_material_override/0 = SubResource("Mat_RobeBlack")
+
+[node name="HatCone" type="MeshInstance3D" parent="."]
+position = Vector3(0.85, 0.32, -0.16)
+rotation_degrees = Vector3(0, 10, 100)
+mesh = SubResource("CylinderMesh_HatCone")
+surface_material_override/0 = SubResource("Mat_RobeBlack")
+
+[node name="InteractZone" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="InteractShape" type="CollisionShape3D" parent="InteractZone"]
+shape = SubResource("SphereShape3D_Interact")

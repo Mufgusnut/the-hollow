@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/RaidCutscene.gd" id="1_raidcutscene"]
+[ext_resource type="VideoStreamTheora" path="res://assets/video/WitchesFate.ogv" id="2_video"]
+
+[node name="RaidCutscene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_raidcutscene")
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stream = ExtResource("2_video")
+expand = true
+autoplay = false
+
+[node name="SkipHint" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -32.0
+offset_right = -12.0
+offset_bottom = -8.0
+horizontal_alignment = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.7, 0.68, 0.65, 0.8)
+text = "Press Any Key to Skip"
