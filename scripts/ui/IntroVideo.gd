@@ -7,10 +7,17 @@ class_name IntroVideo
 ## skips through immediately on its own rather than showing a dead
 ## black screen, so this scene is safe to sit in the chain even before
 ## the video file exists.
+##
+## Skip input is ignored for the first SKIP_DELAY_SEC: a bare "any key"
+## skip with no minimum was too easy to trigger by accident (a stray
+## keypress mid-transition) and lose the whole cutscene instantly.
+
+const SKIP_DELAY_SEC: float = 2.0
 
 @onready var _player: VideoStreamPlayer = $VideoStreamPlayer
 
 var _advancing: bool = false
+var _elapsed_sec: float = 0.0
 
 func _ready() -> void:
 	_player.finished.connect(_advance)
@@ -19,8 +26,11 @@ func _ready() -> void:
 	else:
 		_advance()
 
+func _process(delta: float) -> void:
+	_elapsed_sec += delta
+
 func _unhandled_input(event: InputEvent) -> void:
-	if _advancing:
+	if _advancing or _elapsed_sec < SKIP_DELAY_SEC:
 		return
 	if (event is InputEventKey or event is InputEventMouseButton or event is InputEventJoypadButton) and event.pressed:
 		_advance()
