@@ -113,7 +113,7 @@ mesh = SubResource("BoxMesh_Spur")
 surface_material_override/0 = SubResource("Mat_Dirt")
 
 [node name="Mira" parent="." instance=ExtResource("9_mira")]
-position = Vector3(0, 0, 4.3)
+position = Vector3(0, 0, 1.6)
 rotation_degrees = Vector3(0, 180, 0)
 
 [node name="TailorWalk" type="MeshInstance3D" parent="."]

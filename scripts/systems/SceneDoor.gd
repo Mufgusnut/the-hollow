@@ -14,7 +14,7 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node3D) -> void:
-	if _triggered:
+	if _triggered or not GameState.can_use_scene_door():
 		return
 	var familiar := body as FamiliarController
 	if familiar == null or target_scene == "":

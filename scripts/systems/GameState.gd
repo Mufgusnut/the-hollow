@@ -23,6 +23,31 @@ var quest_stage: String = "none"
 ## radius ignores the familiar while this is set.
 var is_hidden: bool = false
 
+## Zone-transition cooldown: LevelRoot.gd stamps this the instant a new
+## scene finishes loading; SceneDoor.gd refuses to fire again until it
+## elapses. Without it, a spawn marker placed near (or on) the door you
+## just walked in through can immediately retrigger the same door back,
+## or a player can ping-pong two adjacent doors in quick succession.
+const ZONE_TRANSITION_LOCK_SEC: float = 0.5
+## Same zone-entry timestamp also backs a longer catch grace period (see
+## is_catch_grace_active): stepping out of the witch's cottage and
+## straight into a patrol's notice radius, with no time to read its
+## route first, felt like getting caught for existing rather than for
+## a mistake. A few seconds of immunity right after a scene loads gives
+## the player a fair look at the patrol pattern before it can end the
+## errand.
+const CATCH_GRACE_SEC: float = 3.0
+var _zone_entered_at_msec: int = 0
+
+func mark_zone_entered() -> void:
+	_zone_entered_at_msec = Time.get_ticks_msec()
+
+func can_use_scene_door() -> bool:
+	return Time.get_ticks_msec() - _zone_entered_at_msec >= ZONE_TRANSITION_LOCK_SEC * 1000
+
+func is_catch_grace_active() -> bool:
+	return Time.get_ticks_msec() - _zone_entered_at_msec < CATCH_GRACE_SEC * 1000
+
 func capture_from(caster: SpellCaster) -> void:
 	known_spells = caster.known_spells.duplicate()
 

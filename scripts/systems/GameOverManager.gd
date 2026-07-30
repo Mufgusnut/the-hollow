@@ -18,7 +18,7 @@ func _ready() -> void:
 	_panel.visible = false
 
 func trigger_game_over() -> void:
-	if _triggered or GameState.quest_stage != "potion_assigned":
+	if _triggered or GameState.quest_stage != "potion_assigned" or GameState.is_catch_grace_active():
 		return
 	_triggered = true
 	_panel.visible = true

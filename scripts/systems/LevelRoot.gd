@@ -54,6 +54,8 @@ func _swap_familiar(old_familiar: Node, new_scene: PackedScene) -> void:
 	new_instance.rotation = rot
 
 func _ready() -> void:
+	GameState.mark_zone_entered()
+
 	var familiar := get_node_or_null(familiar_path) as FamiliarController
 	if familiar == null:
 		return
