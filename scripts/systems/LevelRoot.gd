@@ -60,6 +60,13 @@ func _ready() -> void:
 	if familiar == null:
 		return
 
+	## Every level load, not just Village's: a stale watcher_count left
+	## over from a notice zone the player was standing in when a
+	## SceneDoor fired would otherwise silently keep filling the meter
+	## in a scene with no patrols to ever clear it.
+	Suspicion.active_familiar = familiar
+	Suspicion.reset()
+
 	if GameState.pending_spawn_marker != &"":
 		var marker := find_child(String(GameState.pending_spawn_marker), true, false) as Node3D
 		if marker:

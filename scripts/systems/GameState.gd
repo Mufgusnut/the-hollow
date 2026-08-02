@@ -24,9 +24,14 @@ var selected_familiar: String = "Cat"
 ## exactly one questline right now.
 var quest_stage: String = "none"
 ## True while the active familiar is standing in a HidingSpot (a tree
-## for Crow, the well for Snake) — PatrolVillager.gd's wide notice
-## radius ignores the familiar while this is set.
+## for Crow/Cat, the well for Snake, a soft garden patch for Rat) —
+## pauses the Suspicion.gd stealth meter's fill entirely while set.
 var is_hidden: bool = false
+
+## Keyed by familiar species name — true once that species' one-time
+## tutorial (see CottageHome.gd) has played, so picking the same
+## familiar again on a later visit doesn't repeat it.
+var tutorials_seen: Dictionary = {}
 
 ## Zone-transition cooldown: LevelRoot.gd stamps this the instant a new
 ## scene finishes loading; SceneDoor.gd refuses to fire again until it

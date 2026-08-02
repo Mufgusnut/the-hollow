@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_hud"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Bg"]
+bg_color = Color(0.05, 0.04, 0.08, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.4, 0.3, 1)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="StealthLabel" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 216.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.85, 0.7, 0.4, 1)
+text = "STEALTH"
+
+[node name="StealthMeter" type="ProgressBar" parent="."]
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 216.0
+offset_bottom = 52.0
+theme_override_styles/background = SubResource("StyleBoxFlat_Bg")
+show_percentage = false

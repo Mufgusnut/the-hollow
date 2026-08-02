@@ -13,6 +13,11 @@ class_name FamiliarController
 @export var rotation_speed: float = 10.0
 @export var arrive_distance: float = 0.15
 @export var jump_velocity: float = 4.5
+## Extra jumps allowed while airborne, beyond the initial ground jump —
+## 0 for every species except Crow, who gets a real second jump in the
+## air (a stand-in for flight: reads as a short flap/hop-glide without
+## building a full flight controller).
+@export var max_air_jumps: int = 0
 
 ## Ambient/exposed suspicion stats feeding the future suspicion system
 ## described in GDD.md "Familiar Bias" — not wired to gameplay yet.
@@ -35,6 +40,7 @@ var input_locked: bool = false
 
 var _move_target: Vector3
 var _has_move_target: bool = false
+var _air_jumps_used: int = 0
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)
 var _last_safe_position: Vector3
 var _is_recovering: bool = false
@@ -69,10 +75,14 @@ func _physics_process(delta: float) -> void:
 		_apply_friction(delta)
 
 	if is_on_floor():
+		_air_jumps_used = 0
 		if not input_locked and Input.is_action_just_pressed("jump"):
 			velocity.y = jump_velocity
 	else:
 		velocity.y -= _gravity * delta
+		if not input_locked and _air_jumps_used < max_air_jumps and Input.is_action_just_pressed("jump"):
+			velocity.y = jump_velocity
+			_air_jumps_used += 1
 
 	move_and_slide()
 

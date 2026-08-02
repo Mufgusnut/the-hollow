@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3]
+[gd_scene load_steps=25 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/familiars/Cat.tscn" id="1_cat"]
 [ext_resource type="Script" path="res://scripts/systems/CameraRig.gd" id="2_camrig"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/props/StoneWallRing.gd" id="8_wallring"]
 [ext_resource type="PackedScene" path="res://scenes/npc/Mira.tscn" id="9_mira"]
 [ext_resource type="PackedScene" path="res://scenes/npc/PatrolVillager.tscn" id="10_patrol"]
+[ext_resource type="Script" path="res://scripts/npc/HidingSpot.gd" id="11_hiding"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -55,6 +56,16 @@ roughness = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_door"]
 size = Vector3(2.0, 2.2, 1.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_villageGarden"]
+size = Vector3(3, 0.05, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_VillageGarden"]
+albedo_color = Color(0.3, 0.22, 0.16, 1)
+roughness = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_RatHide"]
+radius = 1.4
 
 [node name="Village" type="Node3D"]
 script = ExtResource("3_levelroot")
@@ -160,6 +171,21 @@ width = 5.0
 depth = 5.0
 wall_style = 1
 roof_color = Color(0.3, 0.2, 0.12, 1)
+
+[node name="VillageGardenPatch" type="MeshInstance3D" parent="."]
+position = Vector3(3.5, 0.02, -6.5)
+mesh = SubResource("BoxMesh_villageGarden")
+surface_material_override/0 = SubResource("Mat_VillageGarden")
+
+[node name="VillageGardenHidingSpot" type="Area3D" parent="."]
+position = Vector3(3.5, 0.3, -6.5)
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("11_hiding")
+allowed_familiars = Array[String](["Rat"])
+
+[node name="VillageGardenHidingShape" type="CollisionShape3D" parent="VillageGardenHidingSpot"]
+shape = SubResource("SphereShape3D_RatHide")
 
 [node name="StoneHouse" parent="." instance=ExtResource("5_building")]
 position = Vector3(10, 0, -8)

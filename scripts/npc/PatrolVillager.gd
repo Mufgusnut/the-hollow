@@ -4,14 +4,19 @@ class_name PatrolVillager
 ## village square — no fixed back-and-forth line, so there's no route
 ## to memorize during the stealth errand. Occasionally pauses to look
 ## around, and sometimes stops to "chat" when it happens to end up
-## near another villager. Catching the familiar ends the potion errand
-## (see GameOverManager.gd) two different ways:
-##  - NoticeZone (wide) fires for species that read as conspicuous at
-##    range — Crow, Snake — unless the familiar is currently hidden in
-##    a tree/well (GameState.is_hidden, set by HidingSpot.gd).
-##  - TouchZone (tight, right at body contact) always fires, for every
-##    species — Cat and Rat blend in from a distance but a villager
-##    literally bumping into them still notices.
+## near another villager. Ends the potion errand (see
+## GameOverManager.gd) two different ways:
+##  - NoticeZone (wide) doesn't catch on its own anymore — entering it
+##    increments Suspicion.watcher_count, and Suspicion.gd's own
+##    _process() gradually fills the shared HUD meter (rate scaled by
+##    the active familiar's suspicion_when_exposed) while any zone is
+##    watching a non-hidden familiar, ending the errand only once that
+##    meter reaches Suspicion.CEILING. GameState.is_hidden (tree/well/
+##    garden HidingSpot.gd) pauses the fill entirely.
+##  - TouchZone (tight, right at body contact) is a bigger deal than
+##    at-range notice and still catches instantly for every species —
+##    except Cat, who's usually just mistaken for a stray and petted,
+##    *unless* it's actually carrying the quest item right now.
 ## Outside the errand this is inert: trigger_game_over() no-ops unless
 ## GameState.quest_stage == "potion_assigned".
 
@@ -36,10 +41,6 @@ class_name PatrolVillager
 @export var chat_max_sec: float = 4.0
 @export var chat_trigger_radius: float = 3.5
 @export var chat_chance: float = 0.5
-## Species this villager never notices from a distance — only a direct
-## touch (TouchZone) catches them. Matches Cat/Rat's low suspicion
-## baseline from the GDD.
-@export var stealthy_species: Array[String] = ["Cat", "Rat"]
 
 enum State { WANDER, PAUSE, CHAT }
 
@@ -57,6 +58,7 @@ var _rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	_notice_zone.body_entered.connect(_on_notice_entered)
+	_notice_zone.body_exited.connect(_on_notice_exited)
 	_touch_zone.body_entered.connect(_on_touch_entered)
 
 	_home = Vector3(point_a.x, global_position.y, (point_a.z + point_b.z) / 2.0)
@@ -136,15 +138,26 @@ func _begin_wander() -> void:
 	_state = State.WANDER
 
 func _on_notice_entered(body: Node3D) -> void:
-	if not (body is FamiliarController) or GameState.is_hidden:
+	if body is FamiliarController:
+		Suspicion.watcher_count += 1
+
+func _on_notice_exited(body: Node3D) -> void:
+	if body is FamiliarController:
+		Suspicion.watcher_count = max(0, Suspicion.watcher_count - 1)
+
+func _on_touch_entered(body: Node3D) -> void:
+	if not (body is FamiliarController):
 		return
-	if GameState.selected_familiar in stealthy_species:
+	if GameState.selected_familiar == "Cat" and GameState.quest_stage != "potion_assigned":
+		_pet_the_cat()
 		return
 	_catch()
 
-func _on_touch_entered(body: Node3D) -> void:
-	if body is FamiliarController:
-		_catch()
+## Most folk see a stray cat, not a witch's familiar — unless it's
+## actually carrying something incriminating (see the touch-handling
+## comment up top), getting spotted up close is harmless.
+func _pet_the_cat() -> void:
+	DialogueManager.start_dialogue("Villager", ["Aw, hello there, puss."])
 
 func _catch() -> void:
 	if _caught:
